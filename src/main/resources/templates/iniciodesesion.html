@@ -3,22 +3,52 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-<html lang="ES">
+<html lang="ES"
+      xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <head>
         <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="description" content="La Aplicación Web de Intercambio de Documentos es una plataforma en línea diseñada para facilitar la interacción y el intercambio de material documental entre usuarios">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8"></meta>
+        <meta name="description" content="La Aplicación Web de Intercambio de Documentos es una plataforma en línea diseñada para facilitar la interacción y el intercambio de material documental entre usuarios"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"></link>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script><!-- comment -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
     </head>
     <body>
-        <div id="nav1"></div>
-        <image src="logouteq.png" />
-        <img src="src" alt="alt"/>
-        <img src="${pageContext.request.contextPath}/templates/logouteq.png" alt="Logo UTEQ">
-        <img src="logouteq.png" width="1000"
-             th:src="@{logouteq.png}"/>
+        <div id="nav1"><image src="logouteq.png" class="logo" alt="Logo uteq" /></div>
+        <img src="src" width="20px" alt="Logo docsFriends"/><p style="color:White; font-size: 20px; display: inline-block">DocsFriends</p>
+        <div class="centered-container">
+            <div class="login-box">
+                <button class="close-button " style="color: #FFC107;">&#10006;</button>
+                <p style="color:#FFC107; display: flex; justify-content: center;">Inicia sesión</p>
+                <hr style="margin-top: 20px; margin-bottom: 20px; color:#FFC107; border-width: 2px;"/>
+                <form  method="POST">
+                    <div class="mb-3">
+                        <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Usuario">
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" maxlength="50"  class="form-control" id="exampleFormControlInput1" placeholder="Contraseña">
+                    </div>
+
+                    <button type="submit"  class="btn btn-warning custom-button">Guardar</button>
+                    <p style="color: #757575">¿No tienes cuenta? <a style="color: #FFC107;">Registrate</a></p>
+                </form>
+
+            </div>
+        </div>
+
+
+
     </body>
     <style type="text/css">
+        a{
+            
+        }
         #nav1{
             background: #000000;
             height: 40px;
@@ -30,10 +60,61 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         body {
             margin: 0;
             padding: 0;
-            background: url(fondo.jpg);
+            background: radial-gradient(circle, #20404F,#0D1A20);/*degradado*/
             background-size: cover;
             width: 100%;
             height: 100%;
         }
+        .logo {
+
+            position: absolute;
+            top: 15px; /* Distancia desde la parte superior del contenedor */
+            right: 0; /* Distancia desde el lado derecho del contenedor */
+            width: 50px; /* Ancho del logotipo, ajusta según tus necesidades */
+            height: auto; /* Altura automática para mantener la proporción */
+        }
+
+        .centered-container {
+            margin-top: 10%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .login-box {
+            position: relative;
+            border: 2px solid black;
+            background: #0F2539;
+            padding: 80px;
+            border-radius: 2px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        .custom-button {
+            border-radius: 50px; /* Borde redondeado */
+            width: 100%; /*igualarlo a los inputs*/
+
+        }
+        .mb-3 input{
+            background-color: transparent;
+            color: #FFC107;
+            border-bottom-color: #FFC107;
+            border-radius: 2px
+        }
+        ::placeholder {
+            color: #FFC107 !important;
+            opacity: 1 !important;
+        }
+        .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #FFC107; /* Color amarillo */
+}
     </style>
 </html>
