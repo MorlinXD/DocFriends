@@ -23,6 +23,12 @@ public class inicio_controller {
     {
         return "inicio";
     }
+    
+    @GetMapping("/iniciosession")
+    public String login(Model mo)
+    {
+        return "iniciodesesion";
+    }
 
 
 }
