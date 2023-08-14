@@ -35,6 +35,18 @@ public class inicio_controller {
     {
         return "registrarse";
     }
+    
+    @GetMapping("/home")
+    public String iniciousuario(Model mo)
+    {
+        return "iniciousuario";
+    }
+    
+    @GetMapping("/logouteq")
+    public String logo(Model mo)
+    {
+        return "ss.jpg";
+    }
 
 
 }
