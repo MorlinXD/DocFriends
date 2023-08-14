@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html lang="ES"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8"></meta>
+        <meta name="description" content="La Aplicación Web de Intercambio de Documentos es una plataforma en línea diseñada para facilitar la interacción y el intercambio de material documental entre usuarios"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"></link>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    </head>
+    <body>
+        <div id="nav1"><image src="https://fyc.uteq.edu.ec:3000/img/logoUTEQ.png" class="logo" alt="Logo uteq" /></div>
+
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <img id="logo2" src="https://cdn-icons-png.flaticon.com/512/2780/2780068.png" width="20px" alt="Logo docsFriends"/>
+                <a class=" innavbar" href="#" >DocsFriends</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
+
+                        <button class="btn btn-outline-warning etiqueta opciones" type="button">+</button>
+
+
+
+                    </form>
+
+
+
+                    <button class="btn btn-outline-warning opciones" type="button">&#128276;</button>
+                    <button class="btn btn-outline-warning opciones" type="button">&#128386;</button>
+
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img class="perfil"  src="https://pbs.twimg.com/profile_images/1601468664053698562/NuzsYaUh_400x400.jpg"/>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="#">Perfil</a></li>
+                            <li><a class="dropdown-item" href="#">Agregar cuenta</a></li>
+                            <li><a class="dropdown-item" href="#">Salir</a></li>
+                        </ul>
+                    </div>
+                    </form>
+                </div>
+        </nav>
+
+
+
+
+
+    </body>
+    <style type="text/css">
+        .logo2{
+            width: 40px;
+            height: auto;
+        }
+        li{
+            height: 50px;
+        }
+        .perfil{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-left: 5px;
+            border: 2px solid;
+        }
+        .innavbar{
+            color:white;
+        }
+        a{
+            text-decoration: none;
+        }
+
+        .navbar-expand-lg{
+            background-color:#0A2239 ;
+        }
+
+        #nav1{
+            background: #000000;
+            height: 40px;
+        }
+
+        *{
+            margin:0;
+            padding:0;
+        }
+
+
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle, #20404F,#0D1A20);/*degradado*/
+            background-size: cover;
+            width: 100%;
+            height: 100%;
+        }
+        .logo {
+
+            position: absolute;
+            top: 15px; /* Distancia desde la parte superior del contenedor */
+            right: 0; /* Distancia desde el lado derecho del contenedor */
+            width: 15px; /* Ancho del logotipo, ajusta según tus necesidades */
+            height: auto; /* Altura automática para mantener la proporción */
+            margin-right: 10px;
+        }
+
+        .opciones{
+            border: none;
+            width: 60px;
+            height: 60px;
+        }
+        .etiqueta{
+
+            border-radius: 50%;
+            margin: 5px;
+        }
+        .mb-3 input{
+            background-color: transparent;
+            color: #FFC107;
+            border-bottom-color: #FFC107;
+            border-radius: 4px
+        }
+        ::placeholder {
+            color: #FFC107 !important;
+            opacity: 1 !important;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #FFC107; /* Color amarillo */
+        }
+    </style>
+
+</html>
