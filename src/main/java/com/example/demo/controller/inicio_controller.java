@@ -29,6 +29,12 @@ public class inicio_controller {
     {
         return "iniciodesesion";
     }
+    
+    @GetMapping("/registrarse")
+    public String registrarse(Model mo)
+    {
+        return "registrarse";
+    }
 
 
 }

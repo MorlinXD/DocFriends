@@ -25,18 +25,54 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <div class="centered-container">
             <div class="login-box">
                 <button class="close-button " style="color: #FFC107;">&#10006;</button>
-                <p style="color:#FFC107; display: flex; justify-content: center;">Inicia sesión</p>
+                <p style="color:#FFC107; display: flex; justify-content: center;">Unete a DocsFriends</p>
                 <hr style="margin-top: 20px; margin-bottom: 20px; color:#FFC107; border-width: 2px;"/>
+
                 <form  method="POST">
-                    <div class="mb-3">
-                        <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Usuario">
+                    <div class="form-segment segment-1">
+                        <div class="mb-3">
+                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Nombre de usuario">
+                        </div>
+                        <div class="mb-3">
+                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Nombres">
+                        </div>
+                        <div class="mb-3">
+                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Apellidos">
+                        </div>
+                        <div class="mb-3">
+                            <input required="true" type="email" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Correo electronico">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" maxlength="50"  class="form-control" id="exampleFormControlInput1" placeholder="Contraseña">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" maxlength="50"  class="form-control" id="exampleFormControlInput1" placeholder="Repetir contraseña">
+                        </div>                    
                     </div>
-                    <div class="mb-3">
-                        <input type="password" maxlength="50"  class="form-control" id="exampleFormControlInput1" placeholder="Contraseña">
+                    <div class="form-segment segment-2" style="display: none;">
+                        <div class="mb-3">
+                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Cedula" max="10">
+                        </div>
+                        <div class="mb-3">
+                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Dirección" max="30">
+                        </div>
+                        <div class="mb-3">
+                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Telefono" max="13">
+                        </div>
+                        <select  value="Provincia">
+                            <option value="" disabled selected>Provincia</option>
+                            <option value="">----</option>
+                        </select>
+                        <select  value="Ciudad">
+                            <option value="" disabled selected>Ciudad</option>
+                            <option value="">----</option>
+                        </select>
+
                     </div>
 
-                    <button type="submit"  class="btn btn-warning custom-button">Iniciar sesión</button>
-                    <p style="color: #757575">¿No tienes cuenta? <a style="color: #FFC107;" th:href="@{/docsfriends/registrarse}">Registrate</a></p>
+                    <br/>
+                    <button type="button" id="next-button" class="btn btn-warning custom-button">Siguiente</button>
+                    <p style="color: #757575">¿Ya tienes cuenta? <a style="color: #FFC107;" th:href="@{/docsfriends/iniciosession}">Inicia sesión</a></p>
                 </form>
 
             </div>
@@ -47,7 +83,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </body>
     <style type="text/css">
         a{
-            
+
         }
         #nav1{
             background: #000000;
@@ -75,7 +111,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         }
 
         .centered-container {
-            margin-top: 10%;
+            margin-top: 5%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -96,25 +132,45 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             width: 100%; /*igualarlo a los inputs*/
 
         }
-        .mb-3 input{
+        .mb-3 input, select{
             background-color: transparent;
             color: #FFC107;
             border-bottom-color: #FFC107;
-            border-radius: 2px
+            border-radius: 2px;
+
+        }
+        select{
+            width: 49%;
         }
         ::placeholder {
             color: #FFC107 !important;
             opacity: 1 !important;
         }
         .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: transparent;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    color: #FFC107; /* Color amarillo */
-}
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #FFC107; /* Color amarillo */
+        }
     </style>
+    <script>
+        const segments = document.querySelectorAll('.form-segment');
+        const nextButton = document.getElementById('next-button');
+        let currentSegment = 0;
+
+        nextButton.addEventListener('click', () => {
+            segments[currentSegment].style.display = 'none';
+            currentSegment++;
+
+            if (currentSegment >= segments.length) {
+                currentSegment = 0;
+            }
+
+            segments[currentSegment].style.display = 'block';
+        });
+    </script>
 </html>
