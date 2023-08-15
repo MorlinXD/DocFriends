@@ -58,7 +58,7 @@ public class Usuario {
     @JoinColumn(nullable=false)
     Ciudad idCiudad;/*Clave foranea*/
     
-    @Column (nullable=false)
+    @Column (nullable=true)
     private String verificado;
     
     @OneToOne
