@@ -28,10 +28,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <p style="color:#FFC107; display: flex; justify-content: center;">Unete a DocsFriends</p>
                 <hr style="margin-top: 20px; margin-bottom: 20px; color:#FFC107; border-width: 2px;"/>
 
-                <form  th:action="@{/usuario/save}" th:object="${objusuario}" method="POST">
+                <form  th:action="@{/docsfriends/save}" th:object="${objusuario}" method="POST">
                     <div class="form-segment segment-1">
                         <div class="mb-3">
-                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Nombre de usuario" th:field="*{idUsuario}">
+                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Nombre de usuario" th:field="*{nombreusuario}">
                         </div>
                         <div class="mb-3">
                             <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Nombres" th:field="*{nombre}">
@@ -57,17 +57,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Dirección" max="30" th:field="*{direccion}">
                         </div>
                         <div class="mb-3">
-                            <input required="true"  type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Telefono" max="13">
+                            <input required="true"  type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Telefono" max="13" th:field="*{telefono}">
                         </div>
-                        <select>
+                        <select name="idProvincia">
                             <option disabled th:text="Provincia" selected="Provincia"></option>
-                            <option th:each="provincia : ${listaprovincias}" th:value="${provincia.idProvincia}" th:text="${provincia.nombre_provincia}">
+                            <option th:each="provincia : ${listaprovincias}" th:value="${provincia.idProvincia}" th:text="${provincia.nombre_provincia}"  th:field="*{idProvincia}">
                             </option>
-                        </select>
+                        </select >
 
-                        <select>
+                        <select name="idCiudad">
                             <option disabled th:text="Ciudad" selected="Ciudad"></option>
-                            <option th:each="ciudad : ${listaciudad}" th:value="${ciudad.idCiudad}" th:text="${ciudad.nombre_ciudad}">
+                            <option th:each="ciudad : ${listaciudad}" th:value="${ciudad.idCiudad}" th:text="${ciudad.nombre_ciudad}" th:field="*{idCiudad}">
                             </option>
                         </select>
 
@@ -75,6 +75,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                     <br/>
                     <button type="button" id="next-button" class="btn btn-warning custom-button">Siguiente</button>
+                    <button type="submit" id="register-button" class="btn btn-warning custom-button" style="display: none;">Registrarse</button>
                     <p style="color: #757575">¿Ya tienes cuenta? <a style="color: #FFC107;" th:href="@{/docsfriends/iniciosession}">Inicia sesión</a></p>
                 </form>
 
@@ -165,17 +166,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <script>
         const segments = document.querySelectorAll('.form-segment');
         const nextButton = document.getElementById('next-button');
+        const registerButton = document.getElementById('register-button'); // Agregar ID al botón de "Registrarse"
         let currentSegment = 0;
 
         nextButton.addEventListener('click', () => {
+
+
+            
             segments[currentSegment].style.display = 'none';
             currentSegment++;
-
-            if (currentSegment >= segments.length) {
-                currentSegment = 0;
-            }
-
             segments[currentSegment].style.display = 'block';
+            nextButton.style.display = 'none'; // Ocultar el botón "Siguiente"
+                registerButton.style.display = 'block';
         });
     </script>
 </html>
