@@ -5,6 +5,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.Datos.Usuario;
+import com.example.demo.services.Tipo_Documento_service;
 import com.example.demo.services.usuario_service;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -26,11 +27,9 @@ public class inicio_controller {
 
     @Autowired
     private usuario_service ps;
+    @Autowired
+    private Tipo_Documento_service tipodocser;
 
-    @GetMapping("/inicio")
-    public String vista(Model mo) {
-        return "inicio";
-    }
 
     @GetMapping("/iniciosession")
     public String login(Model mo) {
@@ -39,7 +38,7 @@ public class inicio_controller {
     }
 
     @GetMapping("/home")
-    public String iniciousuario(Model mo, HttpSession session,HttpServletResponse response) {
+    public String iniciousuario(Model mo, HttpSession session, HttpServletResponse response) {
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         response.setHeader("Pragma", "no-cache");
         System.out.print("cd");
@@ -68,6 +67,18 @@ public class inicio_controller {
         session.removeAttribute("usuario");
 
         return "redirect:/docsfriends/iniciosession";
+    }
+
+    @GetMapping("/inicio")
+    public String cargarinicio(HttpSession session) {
+
+        return "contenidoinicial";
+    }
+
+    @GetMapping("/creardoc")
+    public String creardocument(Model mo) {
+        mo.addAttribute("listatipodoc", tipodocser.listar());
+        return "creardocumento";
     }
 
 }

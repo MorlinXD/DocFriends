@@ -22,7 +22,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <img id="logo2" src="https://cdn-icons-png.flaticon.com/512/2780/2780068.png" width="20px" alt="Logo docsFriends"/>
-                <a class=" innavbar" href="#" >DocsFriends</a>
+                <a class=" innavbar" href="#" onclick="cargarContenido('/docsfriends/contenido')" >DocsFriends</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -56,15 +56,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     </div>
                     </form>
                 </div>
+
         </nav>
+        <div id="contenido">
 
-
+        </div>
 
 
 
     </body>
     <style type="text/css">
-
+        #contenido{
+            background-size: cover;
+            height: 100%;
+        }
         .logo2{
             width: 40px;
             height: auto;
@@ -168,5 +173,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             margin-top: 5px;
         }
     </style>
+    <script>
+        function cargarContenido(url) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    document.getElementById("contenido").innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("GET", url, true);
+            xhttp.send();
+        }
+        window.onload = cargarContenido('/docsfriends/inicio');
+    </script>
 
 </html>

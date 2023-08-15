@@ -25,7 +25,7 @@ import lombok.Setter;
 public class Tipo_Documento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_tipo_documento;
+    private long idTipoDocumento;
     
     @Column(nullable = false)
     private String nombre_tipo;
