@@ -41,6 +41,9 @@ public class Usuario {
     @Column(nullable=false)
     private String password;
     
+    @Transient
+    private String repeatPassword;
+    
     @Column(nullable=false,length = 10,unique =true)
     private String cedula;
     
