@@ -67,5 +67,6 @@ public class Usuario {
     @OneToOne
     @JoinColumn(nullable=true)
     Imagen idImagen;/*Clave foanea*/
+    
 
 }

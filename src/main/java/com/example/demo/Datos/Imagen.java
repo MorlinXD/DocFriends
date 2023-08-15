@@ -7,12 +7,12 @@ package com.example.demo.Datos;
 import jakarta.persistence.*;
 /*import java.awt.Image;*/
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 
 /**
  *
@@ -25,14 +25,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Imagen {
-    
+public class Imagen { 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_imagen;
+    private long idImagen;
     
-    /*@Column(nullable=false)
-    private Image imagen;/*varbinary o imageIO confirmar luego*/
-    
-    
+    @Column(name = "imagen")
+    private byte[] imagen;
+
 }

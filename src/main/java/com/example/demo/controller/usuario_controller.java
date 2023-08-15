@@ -55,7 +55,7 @@ public class usuario_controller {
             session.setAttribute("usuario", usu.getIdUsuario());
         }
 
-        return "redirect:/docsfriends/home";
+        return "iniciousuario"; 
     }
 
     @PostMapping("/iniciar")
