@@ -28,22 +28,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <p style="color:#FFC107; display: flex; justify-content: center;">Unete a DocsFriends</p>
                 <hr style="margin-top: 20px; margin-bottom: 20px; color:#FFC107; border-width: 2px;"/>
 
-                <form  method="POST">
+                <form  th:action="@{/usuario/save}" th:object="${objusuario}" method="POST">
                     <div class="form-segment segment-1">
                         <div class="mb-3">
-                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Nombre de usuario">
+                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Nombre de usuario" th:field="*{idUsuario}">
                         </div>
                         <div class="mb-3">
-                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Nombres">
+                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Nombres" th:field="*{nombre}">
                         </div>
                         <div class="mb-3">
-                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Apellidos">
+                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Apellidos" th:field="*{apellidos}">
+                        </div>
+                        <div class="mb-3"> 
+                            <input required="true" type="email" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Correo electronico" th:field="*{correo}">
                         </div>
                         <div class="mb-3">
-                            <input required="true" type="email" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Correo electronico">
-                        </div>
-                        <div class="mb-3">
-                            <input type="password" maxlength="50"  class="form-control" id="exampleFormControlInput1" placeholder="Contraseña">
+                            <input type="password" maxlength="50"  class="form-control" id="exampleFormControlInput1" placeholder="Contraseña" th:field="*{password}">
                         </div>
                         <div class="mb-3">
                             <input type="password" maxlength="50"  class="form-control" id="exampleFormControlInput1" placeholder="Repetir contraseña">
@@ -51,21 +51,24 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     </div>
                     <div class="form-segment segment-2" style="display: none;">
                         <div class="mb-3">
-                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Cedula" max="10">
+                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Cedula" max="10"  th:field="*{cedula}">
+                        </div> 
+                        <div class="mb-3">
+                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Dirección" max="30" th:field="*{direccion}">
                         </div>
                         <div class="mb-3">
-                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Dirección" max="30">
+                            <input required="true"  type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Telefono" max="13">
                         </div>
-                        <div class="mb-3">
-                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Telefono" max="13">
-                        </div>
-                        <select  value="Provincia">
-                            <option value="" disabled selected>Provincia</option>
-                            <option value="">----</option>
+                        <select>
+                            <option disabled th:text="Provincia" selected="Provincia"></option>
+                            <option th:each="provincia : ${listaprovincias}" th:value="${provincia.idProvincia}" th:text="${provincia.nombre_provincia}">
+                            </option>
                         </select>
-                        <select  value="Ciudad">
-                            <option value="" disabled selected>Ciudad</option>
-                            <option value="">----</option>
+
+                        <select>
+                            <option disabled th:text="Ciudad" selected="Ciudad"></option>
+                            <option th:each="ciudad : ${listaciudad}" th:value="${ciudad.idCiudad}" th:text="${ciudad.nombre_ciudad}">
+                            </option>
                         </select>
 
                     </div>

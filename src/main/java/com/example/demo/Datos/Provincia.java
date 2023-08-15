@@ -25,7 +25,7 @@ import lombok.Setter;
 public class Provincia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_provincia;
+    private long idProvincia;
     
     @Column(nullable = false)
     private String nombre_provincia;

@@ -24,7 +24,10 @@ import lombok.Setter;
 public class Usuario {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long id_usuario;
+    private long idUsuario;
+    
+    @Column(nullable=false,length = 30,unique =true)
+    private String nombreusuario;
     
     @Column(nullable=false)
     private String nombre;
@@ -32,31 +35,34 @@ public class Usuario {
     @Column(nullable=false)
     private String apellidos;
     
-    @Column(nullable=false)
+    @Column(nullable=false,length = 30,unique =true)
     private String correo;
     
     @Column(nullable=false)
     private String password;
     
-    @Column(nullable=false)
+    @Column(nullable=false,length = 10,unique =true)
     private String cedula;
     
-    @Column(nullable=false)
+    @Column(nullable=false,length = 13,unique =true)
     private String telefono;
     
-    @ManyToOne
-    @JoinColumn(nullable=false)
-    Provincia id_provincia;/*Clave foranea*/
+    @Column(nullable=true, length=30)
+    private String direccion;
     
     @ManyToOne
     @JoinColumn(nullable=false)
-    Ciudad id_ciudad;/*Clave foranea*/
+    Provincia idProvincia;/*Clave foranea*/
+    
+    @ManyToOne
+    @JoinColumn(nullable=false)
+    Ciudad idCiudad;/*Clave foranea*/
     
     @Column (nullable=false)
     private String verificado;
     
     @OneToOne
     @JoinColumn(nullable=true)
-    Imagen id_imagen;/*Clave foranea*/
+    Imagen idImagen;/*Clave foanea*/
 
 }

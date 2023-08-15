@@ -25,12 +25,12 @@ import lombok.Setter;
 public class Ciudad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_ciudad;
+    private long idCiudad;
     
     @Column(nullable = false)
     private String nombre_ciudad;
     
     @ManyToOne
     @JoinColumn(nullable = false)
-    Provincia id_provincia;/*Clave foranea*/
+    Provincia idProvincia;/*Clave foranea*/
 }
