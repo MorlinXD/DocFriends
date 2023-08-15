@@ -16,32 +16,30 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class usuario_service {
+
     @Autowired
     private usuario_interface usuario_inter;
-    
-    
-    public Usuario buscar(Long id)
-    {
+
+    public Usuario buscar(Long id) {
         return usuario_inter.findByidUsuario(id);
     }
-    
-    public List<Usuario> listar()
-    {
+
+    public List<Usuario> listar() {
         return usuario_inter.findAll();
     }
-    
-    
-    public void save(Usuario usua)
-    {
 
-            usuario_inter.save(usua);
+    public void save(Usuario usua) {
 
-        
+        usuario_inter.save(usua);
+
     }
-    
-    
-    public void delete(Usuario usua)
-    {
+
+    public void delete(Usuario usua) {
         usuario_inter.delete(usua);
     }
+
+    public Usuario buscarPorNombreUsuario(String nombreUsuario) {
+        return usuario_inter.findByNombreusuario(nombreUsuario);
+    }
+
 }

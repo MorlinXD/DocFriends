@@ -24,15 +24,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <img id="logo2" src="https://cdn-icons-png.flaticon.com/512/2780/2780068.png" width="20px" alt="Logo docsFriends"/><p style="color:White; font-size: 20px; display: inline-block">DocsFriends</p>
         <div class="centered-container">
             <div class="login-box">
-                <button class="close-button " style="color: #FFC107;">&#10006;</button>
-                <p style="color:#FFC107; display: flex; justify-content: center;">Inicia sesión</p>
-                <hr style="margin-top: 20px; margin-bottom: 20px; color:#FFC107; border-width: 2px;"/>
-                <form  method="POST">
+                <form th:action="@{/docsfriends/iniciar}" th:object="${objusuario}" method="POST">
+                    <button class="close-button " style="color: #FFC107;">&#10006;</button>
+                    <p style="color:#FFC107; display: flex; justify-content: center;">Inicia sesión</p>
+                    <hr style="margin-top: 20px; margin-bottom: 20px; color:#FFC107; border-width: 2px;"/>
+
                     <div class="mb-3">
-                        <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Usuario">
+                        <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Usuario" th:field="*{nombreusuario}" ></input>
                     </div>
                     <div class="mb-3">
-                        <input type="password" maxlength="50"  class="form-control" id="exampleFormControlInput1" placeholder="Contraseña">
+                        <input type="password" maxlength="50"  class="form-control" id="exampleFormControlInput1" placeholder="Contraseña" th:field="*{password}" ></input>
                     </div>
 
                     <button type="submit"  class="btn btn-warning custom-button">Iniciar sesión</button>

@@ -15,4 +15,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface usuario_interface extends JpaRepository<Usuario, Serializable>{
     Usuario findByidUsuario(long idusuario);
+    Usuario findByNombreusuario(String nombreusuario);
 }
+
