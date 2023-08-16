@@ -20,38 +20,53 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
     <body>
         <h4 style="color:white; margin-left:10px">Subir documento</h4>
-        <div class="centrado">
-            <div class="form-segment segment-1">
+        <form th:action="@{/docsfriends/savedoc}" th:object="${objdocumento}" method="POST">
+            <div class="parte" style="margin: 20px ; width: 45%">
+                <div class="form-segment segment-1" >
 
-                <div class="mb-3">
-                    <label style="color:#FFC107">Titulo:</label>
-                    <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Titulo de documento" >
-                </div>
-                <div class="mb-3">
-                    <label style="color:#FFC107">Autor:  </label>
-                    <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Autor de documento" >
-                </div>
-                <div class="mb-3">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Sispnosis:</span>
-                        <textarea class="form-control" aria-label="With textarea"></textarea>
+                    <div class="mb-3">
+                        <label style="color:#FFC107">Titulo:</label>
+                        <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Titulo de documento" th:field="*{titulo}">
                     </div>
+                    <div class="mb-3">
+                        <label style="color:#FFC107">Autor:  </label>
+                        <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Autor de documento" th:field="*{autor}">
+                    </div>
+                    <div class="mb-3">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Sispnosis:</span>
+                            <textarea class="form-control" aria-label="With textarea" th:field="*{descripcion}"></textarea>
+                        </div>
+                    </div>
+                    <select name="idTipoDocumento">
+                        <option disabled th:text="Tipo" selected="Tipo"></option>
+                        <option th:each="tipox : ${listatipodoc}" th:value="${tipox.idTipoDocumento}" th:text="${tipox.nombre_tipo}" th:field="*{idTipoDocumento}"></option>
+                    </select>
+                    <button type="Submit"  class="btn btn-outline-success" id="btonagregar" style="width: 40%">SUBIR LIBRO &#10133;</button>
+                    <button type="button" onclick="cargarContenido('/docsfriends/inicio')" class="btn btn-outline-danger" style="width: 40%">Cancelar</button>
                 </div>
-                <select name="idTipoDocumento">
-    <option disabled selected>Selecciona un tipo</option>
-    <option th:each="tipo : ${listatipodoc}" th:value="${tipo.idTipoDocumento}" th:text="${tipo.nombre_tipo}"></option>
-</select>
             </div>
-        </div>
-
+            <div class="parte" style="margin: 20px ; width: 45%">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThorXEdfCJysgEZiH6slK019YqnDtfL2P6MA&usqp=CAU" class="img" alt="..."></img>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThorXEdfCJysgEZiH6slK019YqnDtfL2P6MA&usqp=CAU" class="img" alt="..."></img>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThorXEdfCJysgEZiH6slK019YqnDtfL2P6MA&usqp=CAU" class="img" alt="..."></img>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThorXEdfCJysgEZiH6slK019YqnDtfL2P6MA&usqp=CAU" class="img" alt="..."></img>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThorXEdfCJysgEZiH6slK019YqnDtfL2P6MA&usqp=CAU" class="img" alt="..."></img>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThorXEdfCJysgEZiH6slK019YqnDtfL2P6MA&usqp=CAU" class="img" alt="..."></img>
+            </div>
+        </form>
     </body>
     <style>
-        .centrado{
-            justify-content: center;
-            display: flex;
-            align-items: center;
+
+        .img{
+            margin: 2%;
+            width: 25%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
         }
-        #btonagregar{
+        .parte{
+            display: inline-block;
+        }
+        button{
             margin: 25px;
         }
         .mb-3 input, select{

@@ -44,13 +44,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <button class="btn btn-outline-warning opciones" type="button">&#128276;</button>
                     <button class="btn btn-outline-warning opciones" type="button">&#128386;</button>
 
-                    <div class="dropdown">
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div style="width: 10%"  class="dropdown">
+                        <button style="width: 100%"class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             <img class="perfil"  src="https://pbs.twimg.com/profile_images/1601468664053698562/NuzsYaUh_400x400.jpg"/>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Perfil</a></li>
-                            <li><a class="dropdown-item" href="#">Agregar cuenta</a></li>
+                            <li>
+                                <button  style="width: 100%" type="button" class="btn btn-light" onclick="cargarContenido('/docsfriends/perfil')">Perfil</button>
+                            </li>
+                            <li><a class="dropdown-item" th:href="@{/docsfriends/registrarse}">Agregar cuenta</a></li>
                             <li><a class="dropdown-item" th:href="@{/docsfriends/salir}">Salir</a></li>
                         </ul>
                     </div>

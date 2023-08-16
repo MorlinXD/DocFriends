@@ -27,7 +27,7 @@ public class Documento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_documento;
+    private long idDocumento;
 
     @Column(nullable = false)
     private String titulo;
@@ -35,7 +35,7 @@ public class Documento {
     @Column(nullable = false)
     private String autor;
     
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String descripcion;
     
     @ManyToOne
@@ -44,15 +44,16 @@ public class Documento {
     
     @ManyToOne
     @JoinColumn(nullable = false)
-    Tipo_Documento id_tipodoc;/*clave foranea*/
+    Tipo_Documento idTipoDocumento;/*clave foranea*/
     
     
     @Column(nullable = false)
     private Date fecha_subida;/*datetime*/
     
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date fecha_intercambio;/*datetime*/
     
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String disponible;
+
 }

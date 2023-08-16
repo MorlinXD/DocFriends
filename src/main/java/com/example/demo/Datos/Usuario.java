@@ -53,6 +53,9 @@ public class Usuario {
     @Column(nullable=true, length=30)
     private String direccion;
     
+    @Column(nullable=true, length=50)
+    private String descripcion;
+    
     @ManyToOne
     @JoinColumn(nullable=false)
     Provincia idProvincia;/*Clave foranea*/

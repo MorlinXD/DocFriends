@@ -4,7 +4,9 @@
  */
 package com.example.demo.controller;
 
+import com.example.demo.Datos.Documento;
 import com.example.demo.Datos.Usuario;
+import com.example.demo.services.Documento_service;
 import com.example.demo.services.Tipo_Documento_service;
 import com.example.demo.services.usuario_service;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,7 +31,8 @@ public class inicio_controller {
     private usuario_service ps;
     @Autowired
     private Tipo_Documento_service tipodocser;
-
+    @Autowired
+    private Documento_service ds;
 
     @GetMapping("/iniciosession")
     public String login(Model mo) {
@@ -43,6 +46,7 @@ public class inicio_controller {
         response.setHeader("Pragma", "no-cache");
         System.out.print("cd");
         Long userId = (Long) session.getAttribute("usuario");
+        mo.addAttribute("objusuario", userId);
         System.out.print("cd2");
         if (userId == null) {
             System.out.print("cd3");
@@ -59,6 +63,19 @@ public class inicio_controller {
     public String logo(Model mo) {
         return "ss.jpg";
     }
+
+    @GetMapping("/perfil")
+    public String perfil(Model mo, HttpSession session) {
+        Long userId = (Long) session.getAttribute("usuario");
+        System.out.print("Valor: "+userId);
+        mo.addAttribute("objusuario", ps.buscar(userId));
+        
+        return "perfil";
+    }
+    
+    
+    
+    
 
     @GetMapping("/salir")
     public String cerrarSesion(HttpSession session) {
@@ -78,6 +95,9 @@ public class inicio_controller {
     @GetMapping("/creardoc")
     public String creardocument(Model mo) {
         mo.addAttribute("listatipodoc", tipodocser.listar());
+        if (mo.getAttribute("objdocumento") == null) {
+            mo.addAttribute("objdocumento", new Documento());
+        }
         return "creardocumento";
     }
 
