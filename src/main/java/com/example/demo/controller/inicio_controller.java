@@ -34,7 +34,6 @@ public class inicio_controller {
     private Tipo_Documento_service tipodocser;
     @Autowired
     private Documento_service ds;
- 
 
     @GetMapping("/iniciosession")
     public String login(Model mo) {
@@ -46,10 +45,9 @@ public class inicio_controller {
     public String iniciousuario(Model mo, HttpSession session, HttpServletResponse response) {
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         response.setHeader("Pragma", "no-cache");
-        System.out.print("cd");
         Long userId = (Long) session.getAttribute("usuario");
         mo.addAttribute("objusuario", userId);
-        System.out.print("cd2");
+
         if (userId == null) {
             System.out.print("cd3");
             return "redirect:/docsfriends/iniciosession";
@@ -69,15 +67,11 @@ public class inicio_controller {
     @GetMapping("/perfil")
     public String perfil(Model mo, HttpSession session) {
         Long userId = (Long) session.getAttribute("usuario");
-        System.out.print("Valor: "+userId);
+        System.out.print("Valor: " + userId);
         mo.addAttribute("objusuario", ps.buscar(userId));
-        mo.addAttribute("documentos", ds.buscarDocumentosPorUsuario(ps.buscar(userId))); 
+        mo.addAttribute("documentos", ds.buscarDocumentosPorUsuario(ps.buscar(userId)));
         return "perfil";
     }
-    
-    
-    
-    
 
     @GetMapping("/salir")
     public String cerrarSesion(HttpSession session) {
@@ -89,8 +83,9 @@ public class inicio_controller {
     }
 
     @GetMapping("/inicio")
-    public String cargarinicio(HttpSession session) {
-
+    public String cargarinicio(Model mo,HttpSession session) {
+        Long userId = (Long) session.getAttribute("usuario");
+        mo.addAttribute("documentosInicio", ds.mostrarDocumentosInicio(ps.buscar(userId)));
         return "contenidoinicial";
     }
 

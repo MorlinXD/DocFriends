@@ -29,13 +29,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <label><span class="subt" th:text="${objusuario.descripcion}"></span></label>
                 <div class="contendorcard">
                     <button  type="button" onclick="cargarContenido('/docsfriends/creardoc')" class="btn btn-outline-success">SUBIR LIBRO &#10133;</button>
-                  
+
                 </div>
                 <div class="contendorcard" th:each="docu : ${documentos}">
                     <div class="card" style="width: 18rem;" >
+                        <h5 class="card-title text-center" th:text="${docu.titulo}" style="align-items: center;"></h5>
                         <img src="..." class="card-img-top" alt="..."></img>
                         <div class="card-body d-flex flex-column">
-                            <h5 class="card-title" th:text="${docu.titulo}"></h5>
+
                             <p class="card-text" th:text="${docu.descripcion}"></p>
                             <a href="#" class="mt-auto btn btn-primary">Ver</a> 
                         </div>
@@ -53,16 +54,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <style>
         .contendorcard{
             display: inline-block;
+
         }
-        
+
 
         .card{
+            margin-left: 5%;
+            align-items: center;
             max-width: 10rem;
             width: 10rem;
             height: 15rem;
         }
         .card-title{
             font-size: 15px;
+            align-items: center;
         }
         .card-text{
             font-size: 10px;

@@ -33,6 +33,11 @@ public class Documento_service {
         return doc_inter.findByidusuario(usuario);
     }
     
+    public List<Documento> mostrarDocumentosInicio(Usuario usuario) {
+        return doc_inter.findByidusuarioNot(usuario);
+    }
+    
+    
      public void save(Documento doc) {
 
         doc_inter.save(doc);

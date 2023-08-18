@@ -21,5 +21,7 @@ public interface Documento_interface extends JpaRepository<Documento, Serializab
     Documento findByidDocumento(long idDocumento);
 
     List<Documento> findByidusuario(Usuario idUsuario);
+    
+    List<Documento> findByidusuarioNot(Usuario idUsuario);
 
 }
