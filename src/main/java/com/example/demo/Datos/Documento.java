@@ -40,7 +40,7 @@ public class Documento {
     
     @ManyToOne
     @JoinColumn(nullable = false)
-    Usuario id_usuario; /*clave foranea*/
+    Usuario idusuario; /*clave foranea*/
     
     @ManyToOne
     @JoinColumn(nullable = false)

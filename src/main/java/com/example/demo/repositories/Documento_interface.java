@@ -16,8 +16,10 @@ import org.springframework.stereotype.Repository;
  * @author Alvar
  */
 @Repository
-public interface Documento_interface extends JpaRepository<Documento, Serializable>{
-    Documento findByidDocumento(long idDocumento);
-   
-}
+public interface Documento_interface extends JpaRepository<Documento, Serializable> {
 
+    Documento findByidDocumento(long idDocumento);
+
+    List<Documento> findByidusuario(Usuario idUsuario);
+
+}

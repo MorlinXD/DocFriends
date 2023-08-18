@@ -37,7 +37,7 @@ public class documento_controller {
         Long userId = (Long) session.getAttribute("usuario");
         doc.setFecha_subida(Date.valueOf(LocalDate.now()));
         
-        doc.setId_usuario(us.buscar(userId));
+        doc.setIdusuario(us.buscar(userId));
         ds.save(doc);
         return "redirect:/docsfriends/home";
     }

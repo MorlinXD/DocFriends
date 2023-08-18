@@ -8,6 +8,7 @@ import com.example.demo.Datos.Documento;
 import com.example.demo.Datos.Usuario;
 import com.example.demo.services.Documento_service;
 import com.example.demo.services.Tipo_Documento_service;
+import com.example.demo.services.ciudad_service;
 import com.example.demo.services.usuario_service;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -33,6 +34,7 @@ public class inicio_controller {
     private Tipo_Documento_service tipodocser;
     @Autowired
     private Documento_service ds;
+ 
 
     @GetMapping("/iniciosession")
     public String login(Model mo) {
@@ -69,7 +71,7 @@ public class inicio_controller {
         Long userId = (Long) session.getAttribute("usuario");
         System.out.print("Valor: "+userId);
         mo.addAttribute("objusuario", ps.buscar(userId));
-        
+        mo.addAttribute("documentos", ds.buscarDocumentosPorUsuario(ps.buscar(userId))); 
         return "perfil";
     }
     

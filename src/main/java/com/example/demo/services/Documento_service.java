@@ -29,7 +29,9 @@ public class Documento_service {
         return doc_inter.findAll();
     }
     
-    
+    public List<Documento> buscarDocumentosPorUsuario(Usuario usuario) {
+        return doc_inter.findByidusuario(usuario);
+    }
     
      public void save(Documento doc) {
 
