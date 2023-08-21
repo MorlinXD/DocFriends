@@ -1,0 +1,50 @@
+<body>
+    <form  th:object="${objusuario}" th:action="@{/docsfriends/guardarcambiosperfil}" method="POST">
+        <div class="content">
+            <img class="ptp"  src="https://pbs.twimg.com/profile_images/1601468664053698562/NuzsYaUh_400x400.jpg"/>
+
+            <div class="mb-3 ">
+                <input required="true" type="text" maxlength="30" class="form-control conten" id="exampleFormControlInput1" placeholder="Nombre de usuario" th:field="*{nombreusuario}">
+            </div>
+            <p><span>Descripción</span></p>
+            <div class="input-group mb-3">
+                
+                <textarea class="form-control" id="textarea" maxlength="60" aria-label="With textarea" th:field="*{descripcion}"></textarea>
+            </div>
+            <button  style="display: inline-block; margin-left: 40px" type="Submit" class="btn btn-outline-warning">Subir perfil</button></a>
+
+        </div>
+    </form>
+
+</body>
+<style>
+    #textarea{
+        width: 500px;
+    }
+    .mb-3{
+        display: inline-block;
+    }
+    .conten{
+
+        width:200px;
+    }
+    
+    .content{
+        width: 75%;
+        margin-left: 25%;
+    }
+    .ptp{
+        display: inline;
+        width: 15%;
+        border-radius: 50%;
+        margin: 15px;
+        border: 2px solid;
+    }
+    span{
+        color:white;
+        font-size: 30px;
+        margin-left: 20px;
+    }
+</style>
+
+</html>

@@ -63,6 +63,13 @@ public class inicio_controller {
     public String logo(Model mo) {
         return "ss.jpg";
     }
+    
+    @GetMapping("/editarperfil")
+    public String edperfil(Model mo, HttpSession session) {
+        Long userId = (Long) session.getAttribute("usuario");
+         mo.addAttribute("objusuario", ps.buscar(userId));
+        return "editarperfil";
+    }
 
     @GetMapping("/perfil")
     public String perfil(Model mo, HttpSession session) {

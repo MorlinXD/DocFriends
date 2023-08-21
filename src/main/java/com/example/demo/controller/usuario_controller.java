@@ -55,7 +55,18 @@ public class usuario_controller {
             session.setAttribute("usuario", usu.getIdUsuario());
         }
 
-        return "iniciousuario"; 
+        return "iniciousuario";
+    }
+
+    @PostMapping("/guardarcambiosperfil")
+    public String guardaru(@ModelAttribute(name = "objusuario") Usuario usu, HttpSession session) {
+        Long userId = (Long) session.getAttribute("usuario");
+        Usuario act=ps.buscar(userId);
+        act.setDescripcion(usu.getDescripcion());
+        act.setDescripcion(usu.getDescripcion());
+        ps.save(act);
+
+        return "redirect:/docsfriends/home";
     }
 
     @PostMapping("/iniciar")
@@ -64,7 +75,7 @@ public class usuario_controller {
         if (aux != null && usu.getPassword().equals(aux.getPassword())) {
             session.setAttribute("usuario", aux.getIdUsuario());
             return "redirect:/docsfriends/home";
-            
+
         } else {
             return "redirect:/docsfriends/iniciosession";
         }
