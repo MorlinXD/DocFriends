@@ -41,7 +41,7 @@ public class inicio_controller {
         return "iniciodesesion";
     }
 
-    @GetMapping("/home")
+    @GetMapping("/home") 
     public String iniciousuario(Model mo, HttpSession session, HttpServletResponse response) {
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         response.setHeader("Pragma", "no-cache");

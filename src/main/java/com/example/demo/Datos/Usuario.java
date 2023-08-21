@@ -54,7 +54,7 @@ public class Usuario {
     private String direccion;
     
     @Column(nullable=true, length=50)
-    private String descripcion;
+    private String descripcion ;
     
     @ManyToOne
     @JoinColumn(nullable=false)

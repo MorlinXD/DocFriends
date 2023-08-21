@@ -62,7 +62,7 @@ public class usuario_controller {
     public String guardaru(@ModelAttribute(name = "objusuario") Usuario usu, HttpSession session) {
         Long userId = (Long) session.getAttribute("usuario");
         Usuario act=ps.buscar(userId);
-        act.setDescripcion(usu.getDescripcion());
+        act.setDescripcion(usu.getDescripcion()); 
         act.setDescripcion(usu.getDescripcion());
         ps.save(act);
 
