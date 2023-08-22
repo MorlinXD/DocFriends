@@ -67,7 +67,7 @@ public class Usuario {
     @Column (nullable=true)
     private String verificado;
     
-    @OneToOne
+    @ManyToOne
     @JoinColumn(nullable=true)
     Imagen idImagen;/*Clave foanea*/
     
