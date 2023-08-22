@@ -55,5 +55,6 @@ public class Documento {
     
     @Column(nullable = true)
     private String disponible;
+    
 
 }

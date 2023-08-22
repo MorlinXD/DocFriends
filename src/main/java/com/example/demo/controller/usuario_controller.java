@@ -4,8 +4,10 @@
  */
 package com.example.demo.controller;
 
+import com.example.demo.Datos.Imagen;
 import com.example.demo.Datos.Usuario;
 import com.example.demo.services.ciudad_service;
+import com.example.demo.services.imagen_service;
 import com.example.demo.services.provincia_service;
 import com.example.demo.services.usuario_service;
 import jakarta.servlet.http.HttpSession;
@@ -34,6 +36,8 @@ public class usuario_controller {
     private provincia_service pros;
     @Autowired
     private ciudad_service cius;
+    @Autowired
+    private imagen_service imgs;
 
     @GetMapping("/registrarse")
     public String vista(Model mo) {
@@ -51,6 +55,7 @@ public class usuario_controller {
         if (!usu.getPassword().equals(usu.getRepeatPassword())) {
             return "redirect:/docsfriends/iniciosession";
         } else {
+            usu.setIdImagen(imgs.buscar((long)1));
             ps.save(usu);
             session.setAttribute("usuario", usu.getIdUsuario());
         }

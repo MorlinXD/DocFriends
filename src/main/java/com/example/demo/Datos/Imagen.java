@@ -32,6 +32,6 @@ public class Imagen {
     private long idImagen;
     
     @Column(name = "imagen")
-    private byte[] imagen;
+    private String ruta;
 
 }
