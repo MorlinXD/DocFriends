@@ -7,6 +7,7 @@ package com.example.demo.controller;
 import com.example.demo.Datos.Documento;
 import com.example.demo.Datos.Usuario;
 import com.example.demo.services.Documento_service;
+import com.example.demo.services.Solicitud_Service;
 import com.example.demo.services.Tipo_Documento_service;
 import com.example.demo.services.ciudad_service;
 import com.example.demo.services.usuario_service;
@@ -34,6 +35,8 @@ public class inicio_controller {
     private Tipo_Documento_service tipodocser;
     @Autowired
     private Documento_service ds;
+    @Autowired
+    private Solicitud_Service solise;
 
     @GetMapping("/iniciosession")
     public String login(Model mo) {
@@ -47,12 +50,14 @@ public class inicio_controller {
         response.setHeader("Pragma", "no-cache");
         Long userId = (Long) session.getAttribute("usuario");
         mo.addAttribute("objusuario", userId);
+        
 
         if (userId == null) {
             System.out.print("cd3");
             return "redirect:/docsfriends/iniciosession";
         }
         Usuario usu = ps.buscar(userId);
+        mo.addAttribute("listanoti", solise.listarusu(usu));
         if (usu == null) {
             return "redirect:/docsfriends/iniciosession";
         }

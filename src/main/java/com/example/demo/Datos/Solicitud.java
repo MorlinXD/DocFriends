@@ -24,20 +24,25 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Solicitud {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_solicitud;
-    
+    private long idSolicitud;
+
     @ManyToOne
     @JoinColumn(nullable = false)
     Usuario id_usuario;/*clave foranea*/
-    
-    @Column(nullable=false, length = 200)
-    private String descripcion;
-    
+
+    @Column(nullable = true, length = 200)
+    private String sdescripcion;
+
     @Column(nullable = false)
     private Date fecha_solitud;/*Datetime*/
-    
+
     @Column(nullable = false)
     private String estado;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    Documento idDocumento;/*clave foranea*/
 }

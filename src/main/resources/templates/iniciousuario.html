@@ -4,10 +4,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
 <html lang="ES"
+      xmlns:p="http://primefaces.org/ui"
       xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      >
     <head>
         <title>Inicio</title>
         <meta charset="UTF-8"></meta>
@@ -33,15 +34,33 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <form class="d-flex" role="search">
                         <input class="form-control me-2 smaller-search" type="search" placeholder="Search" aria-label="Search"></input>
 
-                        <button class="btn btn-outline-warning etiqueta opciones" type="button">+</button>
-
-
+                        <button class="btn btn-outline-warning etiqueta opciones " type="button">+</button>
 
                     </form>
 
 
+                    <div class="dropdown">
+                        <button class="btn btn-outline-warning opciones dropbtn" type="button">&#128276;</button>
+                        <div class="dropdown-content">
 
-                    <button class="btn btn-outline-warning opciones" type="button">&#128276;</button>
+                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item " th:each="noti : ${listanoti}">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed d-inline-block text-truncate" type="button" data-bs-toggle="collapse" th:data-bs-target="${'#' + noti.idSolicitud}" aria-expanded="false" aria-controls="flush-collapseOne" th:text="${noti.idDocumento.titulo}">
+                                            
+                                        </button>
+                                        <h6 th:text="${noti.fecha_solitud}"></h6>
+                                    </h2>
+                                    <div th:id="${noti.idSolicitud}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                        <h6 th:text="${noti.id_usuario.nombreusuario +':'}"></h6>
+                                        <div class="accordion-body" th:text="${noti.sdescripcion}"></div>
+                                        
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
                     <button class="btn btn-outline-warning opciones" type="button">&#128386;</button>
 
                     <div style="width: 10%"  class="dropdown">
@@ -60,6 +79,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </div>
 
         </nav>
+
         <div id="contenido">
 
         </div>
@@ -68,7 +88,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
     </body>
     <style type="text/css">
-        
+        h6{
+            margin: 2%;
+        }
         #contenido{
             background-size: cover;
             height: 100%;
@@ -174,6 +196,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             font-size: 14px;
             padding: 0.25rem 0.5rem;
             margin-top: 5px;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
         }
     </style>
     <script>

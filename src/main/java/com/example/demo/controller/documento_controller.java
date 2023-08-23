@@ -5,8 +5,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.Datos.Documento;
+import com.example.demo.Datos.Solicitud;
 import com.example.demo.Datos.Usuario;
 import com.example.demo.services.Documento_service;
+import com.example.demo.services.Solicitud_Service;
 import com.example.demo.services.usuario_service;
 import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
@@ -37,6 +39,8 @@ public class documento_controller {
     private Documento_service ds;
     @Autowired
     private usuario_service us;
+    @Autowired
+    private Solicitud_Service solise;
 
     @PostMapping("/savedoc")
     public String login(@ModelAttribute(name = "objdocumento") Documento doc, HttpSession session) {
@@ -53,6 +57,17 @@ public class documento_controller {
         Documento doc = ds.buscar(docID);
         ds.delete(doc);
 
+        return "redirect:/docsfriends/home";
+    }
+    
+    @PostMapping("/solicitar")
+    public String solicitar(@ModelAttribute(name = "objsolicitud") Solicitud soli, HttpSession session) {
+        Long userId = (Long) session.getAttribute("usuario");
+        System.out.print("Write line juas jaus");
+        soli.setId_usuario(us.buscar(userId));
+        soli.setFecha_solitud(Date.valueOf(LocalDate.now()));
+        soli.setEstado("Pendiente");
+        solise.guardarsoli(soli);
         return "redirect:/docsfriends/home";
     }
     

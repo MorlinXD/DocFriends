@@ -12,9 +12,9 @@
             </a>
             <button type="button"  data-bs-toggle="modal" th:data-bs-target="${'#' + docu.idDocumento}"><img style="width: 20%; height: auto;" th:src="@{/images/intercambio.png}" class="card-img-top" alt="..."></button>
         </div>
-        
-        
-        <div class="modal fade" th:id="${docu.idDocumento}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+
+        <div class="modal fade" th:id="${docu.idDocumento}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -31,18 +31,23 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="exampleFormControlTextarea1" class="form-label">Escriba su solicitud:</label>
-                                <textarea class="form-control " maxlength="200" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <form th:action="@{/docsfriends/solicitar}" th:object="${objsolicitud}" method="POST">
+                                    <label for="exampleFormControlTextarea1" class="form-label">Escriba su solicitud:</label>
+                                    <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" th:value="${docu.idDocumento}" th:name="idDocumento" hidden>
+                                    <textarea class="form-control" maxlength="200" id="exampleFormControlTextarea1" rows="3" th:name="sdescripcion"></textarea>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="Submit" class="btn btn-warning">Solicitar</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-warning">Solicitar</button>
-                    </div>
+
                 </div>
             </div>
         </div>
+
     </div>
 
 
