@@ -32,7 +32,7 @@ public class Solicitud {
     @JoinColumn(nullable = false)
     Usuario id_usuario;/*clave foranea*/
     
-    @Column(nullable=false)
+    @Column(nullable=false, length = 200)
     private String descripcion;
     
     @Column(nullable = false)

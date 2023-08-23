@@ -40,15 +40,24 @@
             </button>
         </div>
         <h3 class="text-center" th:text="${objdocumento.titulo}"></h3>
+        <div class="d-flex justify-content-end align-items-center Autor">
+            <p class="Autor me-2">Subido:</p>
+            <img class="ptp" th:src="@{/images/{id} (id=${objdocumento.idusuario.idImagen.ruta})}"/>
+        </div>
         <br>
-        <h4 class="" th:text="${objdocumento.autor}"></h4>
+        <p class="Autor">Autor: </p><p class="Autor" th:text="${objdocumento.autor}"></p>
+        
         <br>
         <h5 class="text-center" th:text="${objdocumento.descripcion}"></h5>
-        
+
     </form>
 </body>
 <style>
-    h3,h4,h5{
+    h3,h4,h5,p{
         color: white;
+    }
+    .Autor{
+        display:inline-block;
+        margin:1%;
     }
 </style>
