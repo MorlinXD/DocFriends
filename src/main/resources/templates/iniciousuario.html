@@ -42,22 +42,29 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div class="dropdown">
                         <button class="btn btn-outline-warning opciones dropbtn" type="button">&#128276;</button>
                         <div class="dropdown-content">
+                            <div class="overflow-y-scroll">
+                                <div class="accordion accordion-flush" id="accordionFlushExample">
+                                    <div class="accordion-item "  th:if="${noti.estado == 'Pendiente'}" th:each="noti : ${listanoti}">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed d-inline-block text-truncate" type="button" data-bs-toggle="collapse" th:data-bs-target="${'#' + noti.idSolicitud}" aria-expanded="false" aria-controls="flush-collapseOne" >
+                                                <h6 th:text="${noti.idDocumento.titulo}"></h6>
+                                                <h7 th:text="${noti.fecha_solitud}"></h7>
+                                            </button>
 
-                            <div class="accordion accordion-flush" id="accordionFlushExample">
-                                <div class="accordion-item " th:each="noti : ${listanoti}">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed d-inline-block text-truncate" type="button" data-bs-toggle="collapse" th:data-bs-target="${'#' + noti.idSolicitud}" aria-expanded="false" aria-controls="flush-collapseOne" th:text="${noti.idDocumento.titulo}">
-                                            
-                                        </button>
-                                        <h6 th:text="${noti.fecha_solitud}"></h6>
-                                    </h2>
-                                    <div th:id="${noti.idSolicitud}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                        <h6 th:text="${noti.id_usuario.nombreusuario +':'}"></h6>
-                                        <div class="accordion-body" th:text="${noti.sdescripcion}"></div>
-                                        
+                                        </h2>
+                                        <div th:id="${noti.idSolicitud}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                            <h6 th:text="${noti.id_usuario.nombreusuario +':'}"></h6>
+                                            <div class="accordion-body" th:text="${noti.sdescripcion}"></div>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <button type="button" class="btn btn-warning">Ver</button>
+                                                <a th:href="@{/docsfriends/aceptarsoli?idSoli={id} (id=${noti.idSolicitud})}"><button type="button" class="btn btn-success">Aceptar</button></a>
+                                                <a th:href="@{/docsfriends/rechazarsoli?idSoli={id} (id=${noti.idSolicitud})}"><button type="button" class="btn btn-danger">Rechazar</button></a>
+                                            </div>
+
+                                        </div>
                                     </div>
+
                                 </div>
-                               
                             </div>
                         </div>
                     </div>
@@ -213,6 +220,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
         .dropdown:hover .dropdown-content {
             display: block;
+        }
+        .overflow-y-scroll {
+            max-height: 400px; /* Establece la altura máxima */
+            overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
+            border: 1px solid #ccc; /* Agrega un borde para visualización */
+            padding: 10px; /* Agrega un espacio interno */
         }
     </style>
     <script>

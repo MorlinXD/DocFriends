@@ -5,6 +5,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.Datos.Documento;
+import com.example.demo.Datos.Solicitud;
 import com.example.demo.Datos.Usuario;
 import com.example.demo.services.Documento_service;
 import com.example.demo.services.Solicitud_Service;
@@ -13,6 +14,8 @@ import com.example.demo.services.ciudad_service;
 import com.example.demo.services.usuario_service;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Collections;
+import java.util.List;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +23,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 /**
  *
  * @author Alvar
@@ -57,7 +59,10 @@ public class inicio_controller {
             return "redirect:/docsfriends/iniciosession";
         }
         Usuario usu = ps.buscar(userId);
-        mo.addAttribute("listanoti", solise.listarusu(usu));
+        List<Solicitud> listnot = solise.listarusu(usu);
+        
+         Collections.reverse(listnot);
+        mo.addAttribute("listanoti", listnot);
         if (usu == null) {
             return "redirect:/docsfriends/iniciosession";
         }
