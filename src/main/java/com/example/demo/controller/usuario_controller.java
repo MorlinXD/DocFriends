@@ -69,7 +69,15 @@ public class usuario_controller {
         Usuario act=ps.buscar(userId);
         act.setDescripcion(usu.getDescripcion()); 
         act.setDescripcion(usu.getDescripcion());
-        ps.save(act);
+        
+        try {
+            ps.save(act);
+            session.setAttribute("mensajenoti", "Se guardarón los cambios en el perfil");
+
+        } catch (Exception e) {
+            session.setAttribute("mensajenoti", "No se pudo actualizar el perfil");
+
+        }
 
         return "redirect:/docsfriends/home";
     }

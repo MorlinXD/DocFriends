@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 /**
  *
  * @author Alvar
@@ -48,18 +47,57 @@ public class documento_controller {
         doc.setFecha_subida(Date.valueOf(LocalDate.now()));
 
         doc.setIdusuario(us.buscar(userId));
-        ds.save(doc);
+
+        try {
+            ds.save(doc);
+            session.setAttribute("mensajenoti", "Se creó el documento:'"+doc.getTitulo()+"' correctamente");
+
+        } catch (Exception e) {
+            session.setAttribute("mensajenoti", "No se pudo crear el documento:'"+doc.getTitulo()+"'");
+
+        }
         return "redirect:/docsfriends/home";
+    }
+
+    @PostMapping("/editardoc")
+    public String editar(Model mo, @ModelAttribute(name = "objdocumento") Documento doc, HttpSession session) {
+        Long userId = (Long) session.getAttribute("usuario");
+        doc.setIdusuario(us.buscar(userId));
+        try {
+            ds.save(doc);
+            session.setAttribute("mensajenoti", "Se edito el documento:'"+doc.getTitulo()+"' correctamente");
+
+        } catch (Exception e) {
+            session.setAttribute("mensajenoti", "No se pudo editar el documento:'"+doc.getTitulo()+"'");
+
+        }
+
+        return "redirect:/docsfriends/home";
+    }
+
+    @PostMapping("/removemessage")
+    public ResponseEntity<String> removeMessageFromSession(HttpSession session) {
+
+        session.removeAttribute("mensajenoti");
+        return ResponseEntity.ok("Mensaje de sesión eliminado");
+
     }
 
     @GetMapping("/deletedoc")
     public String eliminar(@RequestParam(value = "docID", required = true) Long docID, HttpSession session) throws ScriptException {
         Documento doc = ds.buscar(docID);
-        ds.delete(doc);
+        
+        try {
+            ds.delete(doc);
+            session.setAttribute("mensajenoti", "Se eliminó el documento:'"+doc.getTitulo()+"' correctamente");
 
+        } catch (Exception e) {
+            session.setAttribute("mensajenoti", "No se pudo eliminar el documento:'"+doc.getTitulo()+"'");
+
+        }
         return "redirect:/docsfriends/home";
     }
-    
+
     @PostMapping("/solicitar")
     public String solicitar(@ModelAttribute(name = "objsolicitud") Solicitud soli, HttpSession session) {
         Long userId = (Long) session.getAttribute("usuario");
@@ -68,9 +106,17 @@ public class documento_controller {
         soli.setFecha_solitud(Date.valueOf(LocalDate.now()));
         soli.setEstado("Pendiente");
         solise.guardarsoli(soli);
+        try {
+            solise.guardarsoli(soli);
+            session.setAttribute("mensajenoti", "Se solicitó el documento: '"+soli.getIdDocumento().getTitulo()+"' correctamente");
+
+        } catch (Exception e) {
+            session.setAttribute("mensajenoti", "No se pudo solicitar el documento:'"+soli.getIdDocumento().getTitulo()+"'");
+
+        }
         return "redirect:/docsfriends/home";
     }
-    
+
     @GetMapping("/documento")
     public String a(Model mo, @RequestParam(value = "docID", required = true) Long docID) {
         mo.addAttribute("objdocumento", ds.buscar(docID));

@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 /**
  *
  * @author Alvar
@@ -46,13 +47,12 @@ public class inicio_controller {
         return "iniciodesesion";
     }
 
-    @GetMapping("/home") 
+    @GetMapping("/home")
     public String iniciousuario(Model mo, HttpSession session, HttpServletResponse response) {
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         response.setHeader("Pragma", "no-cache");
         Long userId = (Long) session.getAttribute("usuario");
         mo.addAttribute("objusuario", userId);
-        
 
         if (userId == null) {
             System.out.print("cd3");
@@ -60,9 +60,12 @@ public class inicio_controller {
         }
         Usuario usu = ps.buscar(userId);
         List<Solicitud> listnot = solise.listarusu(usu);
-        
-         Collections.reverse(listnot);
+
+        Collections.reverse(listnot);
         mo.addAttribute("listanoti", listnot);
+
+        
+
         if (usu == null) {
             return "redirect:/docsfriends/iniciosession";
         }
@@ -73,11 +76,11 @@ public class inicio_controller {
     public String logo(Model mo) {
         return "ss.jpg";
     }
-    
+
     @GetMapping("/editarperfil")
     public String edperfil(Model mo, HttpSession session) {
         Long userId = (Long) session.getAttribute("usuario");
-         mo.addAttribute("objusuario", ps.buscar(userId));
+        mo.addAttribute("objusuario", ps.buscar(userId));
         return "editarperfil";
     }
 
@@ -87,6 +90,12 @@ public class inicio_controller {
         System.out.print("Valor: " + userId);
         mo.addAttribute("objusuario", ps.buscar(userId));
         mo.addAttribute("documentos", ds.buscarDocumentosPorUsuario(ps.buscar(userId)));
+         //---------------------------
+        mo.addAttribute("listatipodoc", tipodocser.listar());
+        if (mo.getAttribute("objdocumento") == null) {
+            mo.addAttribute("objdocumento", new Documento());
+        }
+        //---------------------------
         return "perfil";
     }
 
@@ -100,9 +109,10 @@ public class inicio_controller {
     }
 
     @GetMapping("/inicio")
-    public String cargarinicio(Model mo,HttpSession session) {
+    public String cargarinicio(Model mo, HttpSession session) {
         Long userId = (Long) session.getAttribute("usuario");
         mo.addAttribute("documentosInicio", ds.mostrarDocumentosInicio(ps.buscar(userId)));
+       
         return "contenidoinicial";
     }
 

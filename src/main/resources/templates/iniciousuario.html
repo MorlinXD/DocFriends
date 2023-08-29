@@ -4,12 +4,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
 <html  
-      lang="ES"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns="http://www.w3.org/1999/xhtml" 
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      >
+    lang="ES"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    >
     <head>
         <title>Inicio</title>
         <meta charset="UTF-8"></meta>
@@ -94,20 +94,41 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         </div>
 
 
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    
+                        <strong class="me-auto">Actividad</strong>
+                        <small>Actualmente..</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    <span id="mensajeSession" th:text="${session.mensajenoti}"></span>
+                </div>
+            </div>
+        </div>
         <script>
-            app.controller('LoginController', ['$scope', 'AuthService', function ($scope, AuthService) {
-                    $scope.login = function () {
-                        AuthService.login($scope.username, $scope.password)
-                                .then(function (response) {
-                                    // Procesar la respuesta exitosa y redirigir a la página principal
-                                })
-                                .catch(function (error) {
-                                    // Mostrar una alerta en caso de error (contraseña incorrecta)
-                                    $scope.showAlert = true;
-                                    $scope.alertMessage = "Contraseña incorrecta. Por favor, inténtalo nuevamente.";
-                                });
-                    };
-                }]);
+            const toastLiveExample = document.getElementById('liveToast');
+            const mensajeSession = document.getElementById('mensajeSession').textContent;
+
+            if (toastLiveExample && mensajeSession) {
+                const toastBootstrap = new bootstrap.Toast(toastLiveExample);
+                toastBootstrap.show();
+                fetch('/docsfriends/removemessage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '<csrf-token>' 
+                    },
+                    body: JSON.stringify({mensaje: mensajeSession})
+                }).then(response => {
+                    if (response.ok) {
+                        console.log('Mensaje de sesión eliminado con éxito');
+                    } else {
+                        console.error('Error al eliminar el mensaje de sesión');
+                    }
+                });
+            }
         </script>
     </body>
     <style type="text/css">

@@ -2,51 +2,129 @@
     <form  th:object="${objusuario}" method="POST">
         <div class="content">
             <img class="ptp"  th:src="@{/images/{id} (id=${objusuario.idImagen.ruta})}"/>
-            <label><span th:text="${objusuario.nombreusuario}"></span></label>
+            <label><span class="span" th:text="${objusuario.nombreusuario}"></span></label>
             <button onclick="cargarContenido('/docsfriends/editarperfil')" style="display: inline-block; margin-left: 40px" type="button" class="btn btn-outline-warning">Editar</button>
             <br/>
-             
-            
+
+
             <div class="contendorcard">
                 <button  type="button" onclick="cargarContenido('/docsfriends/creardoc')" class="btn btn-outline-success">SUBIR DOCUMENTO &#10133;</button>
 
             </div>
 
-            <div class="contendorcard" th:each="docu : ${documentos}">
-                <div class="card" style="width: 18rem;" >
-                    <h5 class="card-title text-center" th:text="${docu.titulo}" style="align-items: center;"></h5>
 
-                    <img src="..." class="card-img-top" alt="..."></img>
-                    <div class="card-body d-flex flex-column">
+        </div>
+    </form>
 
-                        <p class="card-text" th:text="${docu.descripcion}"></p>
-                        <div class="mt-auto">
-                            <button type="button" class="btn btn-success" style="display: inline">Ver</button>
-                            <div class="dropdown " style="display: inline">
+    <div class="contendorcard" th:each="docu : ${documentos}">
+        <div class="card" style="width: 18rem;" >
+            <h5 class="card-title text-center" th:text="${docu.titulo}" style="align-items: center;"></h5>
 
-                                <button class="btn btn-secondary dropdown-toggle custom-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    &#128190
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><button style="width: 100%" type="button" class="btn btn-outline-warning">Editar</button></li>
-                                    <li><a th:href="@{/docsfriends/deletedoc?docID={id} (id=${docu.idDocumento})}"><button style="width: 100%" type="button" class="btn btn-outline-danger">Eliminar &#128465;</button></a></li>
-                                </ul>
+            <img src="..." class="card-img-top" alt="..."></img>
+            <div class="card-body d-flex flex-column">
+
+                <p class="card-text" th:text="${docu.descripcion}"></p>
+                <div class="mt-auto">
+                    <button type="button" class="btn btn-success" style="display: inline">Ver</button>
+                    <div class="dropdown " style="display: inline">
+
+                        <button class="btn btn-secondary dropdown-toggle custom-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            &#128190
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><button style="width: 100%" type="button" class="btn btn-outline-warning" data-bs-toggle="modal" th:data-bs-target="${'#' + docu.idDocumento}">Editar</button></li>
+                            <li><a th:href="@{/docsfriends/deletedoc?docID={id} (id=${docu.idDocumento})}"><button style="width: 100%" type="button" class="btn btn-outline-danger">Eliminar &#128465;</button></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form  th:object="${objdocumento}" th:action="@{/docsfriends/editardoc}" method="POST">
+            <div class="modal-dialog modal-dialog-scrollable ">
+                <div class="modal fade " th:id="${docu.idDocumento}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable ">
+                        <div class="modal-content custom-modal-bg">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color:white">Editar documento</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
+
+                            <div class="modal-body">
+                                <div >
+
+                                    <div class="form-segment segment-1" >
+                                        <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" th:value="${docu.idDocumento}" th:name="idDocumento" hidden>
+                                        <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" th:value="${docu.fecha_subida}" th:name="fecha_subida" hidden>
+                                        <input type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" th:value="${docu.disponible}" th:name="disponible" hidden>
+                                        <div class="mb-3">
+                                            <label style="color:#FFC107">Titulo:</label>
+                                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Titulo de documento" th:value="${docu.titulo}" th:name="titulo">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label style="color:#FFC107">Autor:  </label>
+                                            <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Autor de documento" th:value="${docu.autor}" th:name="autor">
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text span">Sispnosis:</span>
+                                                <textarea class="form-control" aria-label="With textarea" th:text="${docu.descripcion}" th:name="descripcion"></textarea>
+                                            </div>
+                                        </div>
+                                        <select name="idTipoDocumento" style="min-width:  50%;">
+                                            <option disabled th:text="Tipo"></option>
+                                            <option th:each="tipox : ${listatipodoc}" 
+                                                    th:value="${tipox.idTipoDocumento}" 
+                                                    th:text="${tipox.nombre_tipo}"
+                                                    th:selected="${tipox.idTipoDocumento == docu.idTipoDocumento}"></option>
+                                        </select>
+                                        <br/><br/>
+
+                                    </div>
+
+                                </div>
+                                <div >
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThorXEdfCJysgEZiH6slK019YqnDtfL2P6MA&usqp=CAU" class="img" alt="..."></img>
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThorXEdfCJysgEZiH6slK019YqnDtfL2P6MA&usqp=CAU" class="img" alt="..."></img>
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThorXEdfCJysgEZiH6slK019YqnDtfL2P6MA&usqp=CAU" class="img" alt="..."></img>
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThorXEdfCJysgEZiH6slK019YqnDtfL2P6MA&usqp=CAU" class="img" alt="..."></img>
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThorXEdfCJysgEZiH6slK019YqnDtfL2P6MA&usqp=CAU" class="img" alt="..."></img>
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThorXEdfCJysgEZiH6slK019YqnDtfL2P6MA&usqp=CAU" class="img" alt="..."></img>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="Submit"  class="btn btn-outline-success" id="btonagregar" style="width: 45%">EDITAR DOCUMENTO &#10133;</button>
+                                <button type="button" class="btn btn-outline-danger" style="width: 45%" data-bs-dismiss="modal">Cancelar</button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
 
             </div>
 
+        </form>
+
+    </div>
 
 
-
-        </div>
-    </form>
 
 </body>
 <style>
-
+    .img{
+        width: 30%;
+        height: auto;
+        margin: 1%;
+    }
+    .custom-modal-bg {
+        margin: 0;
+        padding: 0;
+        background: radial-gradient(circle, #20404F, #0D1A20); /* degradado */
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+    }
     .custom-dropdown {
         font-size: 14px;
         padding: 5px 10px;
@@ -91,7 +169,7 @@
         margin: 15px;
         border: 2px solid;
     }
-    span{
+    .span{
         color:white;
         font-size: 30px;
         margin-left: 20px;
