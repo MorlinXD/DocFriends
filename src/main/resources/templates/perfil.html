@@ -39,7 +39,7 @@
                 </div>
             </div>
         </div>
-        <form  th:object="${objdocumento}" th:action="@{/docsfriends/editardoc}" method="POST">
+        <form  th:object="${objdocumento}" th:action="@{/docsfriends/editardoc}" method="POST" enctype="multipart/form-data">
             <div class="modal-dialog modal-dialog-scrollable ">
                 <div class="modal fade " th:id="${docu.idDocumento}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable ">
@@ -82,13 +82,27 @@
                                     </div>
 
                                 </div>
-                                <div >
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThorXEdfCJysgEZiH6slK019YqnDtfL2P6MA&usqp=CAU" class="img" alt="..."></img>
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThorXEdfCJysgEZiH6slK019YqnDtfL2P6MA&usqp=CAU" class="img" alt="..."></img>
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThorXEdfCJysgEZiH6slK019YqnDtfL2P6MA&usqp=CAU" class="img" alt="..."></img>
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThorXEdfCJysgEZiH6slK019YqnDtfL2P6MA&usqp=CAU" class="img" alt="..."></img>
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThorXEdfCJysgEZiH6slK019YqnDtfL2P6MA&usqp=CAU" class="img" alt="..."></img>
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThorXEdfCJysgEZiH6slK019YqnDtfL2P6MA&usqp=CAU" class="img" alt="..."></img>
+                                <div>
+                                    <label class="img p">
+                                        <input type="file" name="file1" accept=".jpg, .jpeg, .png"  >
+                                    </label>
+                                    <label class="img p">
+                                        <input type="file" name="file2" accept=".jpg, .jpeg, .png"  >
+                                    </label>
+                                    <label class="img p">
+                                        <input type="file" name="file3" accept=".jpg, .jpeg, .png"  >
+                                    </label> 
+                                    <label class="img p">
+                                        <input type="file" name="file4" accept=".jpg, .jpeg, .png"  >
+                                    </label> 
+                                    <label class="img p">
+                                        <input type="file" name="file5" accept=".jpg, .jpeg, .png"  >
+                                    </label>
+                                    <label class="img p">
+                                        <input type="file" name="file6" accept=".jpg, .jpeg, .png"  >
+                                    </label>
+                                    
+                                    
                                 </div>
 
                             </div>
@@ -108,12 +122,15 @@
 
     </div>
 
-
+    
 
 </body>
 <style>
+    .p:hover {
+        cursor: pointer;
+    }
     .img{
-        width: 30%;
+        width: 50%;
         height: auto;
         margin: 1%;
     }

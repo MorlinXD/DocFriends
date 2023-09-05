@@ -11,8 +11,13 @@ import com.example.demo.services.Documento_service;
 import com.example.demo.services.Solicitud_Service;
 import com.example.demo.services.usuario_service;
 import jakarta.servlet.http.HttpSession;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -25,6 +30,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -42,33 +49,92 @@ public class documento_controller {
     private Solicitud_Service solise;
 
     @PostMapping("/savedoc")
-    public String login(@ModelAttribute(name = "objdocumento") Documento doc, HttpSession session) {
+    public String login(@ModelAttribute(name = "objdocumento") Documento doc, HttpSession session,
+            @RequestParam(name = "file1", required = false) MultipartFile archivo1,
+            @RequestParam(name = "file2", required = false) MultipartFile archivo2,
+            @RequestParam(name = "file3", required = false) MultipartFile archivo3,
+            @RequestParam(name = "file4", required = false) MultipartFile archivo4,
+            @RequestParam(name = "file5", required = false) MultipartFile archivo5,
+            @RequestParam(name = "file6", required = false) MultipartFile archivo6,
+            RedirectAttributes flash) {
+
         Long userId = (Long) session.getAttribute("usuario");
         doc.setFecha_subida(Date.valueOf(LocalDate.now()));
 
         doc.setIdusuario(us.buscar(userId));
+        List<MultipartFile> archivos = new ArrayList<>();
+        archivos.add(archivo1);
+        doc.setRuta1(archivo1.getOriginalFilename());
+        archivos.add(archivo2);
+        doc.setRuta2(archivo2.getOriginalFilename());
+        archivos.add(archivo3);
+        doc.setRuta3(archivo3.getOriginalFilename());
+        archivos.add(archivo4);
+        doc.setRuta4(archivo4.getOriginalFilename());
+        archivos.add(archivo5);
+        doc.setRuta5(archivo5.getOriginalFilename());
+        archivos.add(archivo6);
+        doc.setRuta6(archivo6.getOriginalFilename());
 
         try {
+            for (MultipartFile archivo : archivos) {
+                if (archivo != null && !archivo.isEmpty()) {
+                    String ruta_gen = "src/main/resources/static/images/";
+                    byte[] bytes = archivo.getBytes();
+                    Path ruta = Paths.get(ruta_gen + archivo.getOriginalFilename());
+                    Files.write(ruta, bytes);
+                    // Guardar información del archivo en la base de datos si es necesario
+                }
+            }
             ds.save(doc);
-            session.setAttribute("mensajenoti", "Se creó el documento:'"+doc.getTitulo()+"' correctamente");
+            session.setAttribute("mensajenoti", "Se creó el documento:'" + doc.getTitulo() + "' correctamente");
 
         } catch (Exception e) {
-            session.setAttribute("mensajenoti", "No se pudo crear el documento:'"+doc.getTitulo()+"'");
+            session.setAttribute("mensajenoti", "No se pudo crear el documento:'" + doc.getTitulo() + "'");
 
         }
         return "redirect:/docsfriends/home";
     }
 
     @PostMapping("/editardoc")
-    public String editar(Model mo, @ModelAttribute(name = "objdocumento") Documento doc, HttpSession session) {
+    public String editar(Model mo, @ModelAttribute(name = "objdocumento") Documento doc, HttpSession session,
+            @RequestParam(name = "file1", required = false) MultipartFile archivo1,
+            @RequestParam(name = "file2", required = false) MultipartFile archivo2,
+            @RequestParam(name = "file3", required = false) MultipartFile archivo3,
+            @RequestParam(name = "file4", required = false) MultipartFile archivo4,
+            @RequestParam(name = "file5", required = false) MultipartFile archivo5,
+            @RequestParam(name = "file6", required = false) MultipartFile archivo6,
+            RedirectAttributes flash) {
         Long userId = (Long) session.getAttribute("usuario");
         doc.setIdusuario(us.buscar(userId));
+        List<MultipartFile> archivos = new ArrayList<>();
+        archivos.add(archivo1);
+        doc.setRuta1(archivo1.getOriginalFilename());
+        archivos.add(archivo2);
+        doc.setRuta2(archivo2.getOriginalFilename());
+        archivos.add(archivo3);
+        doc.setRuta3(archivo3.getOriginalFilename());
+        archivos.add(archivo4);
+        doc.setRuta4(archivo4.getOriginalFilename());
+        archivos.add(archivo5);
+        doc.setRuta5(archivo5.getOriginalFilename());
+        archivos.add(archivo6);
+        doc.setRuta6(archivo6.getOriginalFilename());
         try {
+            for (MultipartFile archivo : archivos) {
+                if (archivo != null && !archivo.isEmpty()) {
+                    String ruta_gen = "src/main/resources/static/images/";
+                    byte[] bytes = archivo.getBytes();
+                    Path ruta = Paths.get(ruta_gen + archivo.getOriginalFilename());
+                    Files.write(ruta, bytes);
+                    // Guardar información del archivo en la base de datos si es necesario
+                }
+            }
             ds.save(doc);
-            session.setAttribute("mensajenoti", "Se edito el documento:'"+doc.getTitulo()+"' correctamente");
+            session.setAttribute("mensajenoti", "Se edito el documento:'" + doc.getTitulo() + "' correctamente");
 
         } catch (Exception e) {
-            session.setAttribute("mensajenoti", "No se pudo editar el documento:'"+doc.getTitulo()+"'");
+            session.setAttribute("mensajenoti", "No se pudo editar el documento:'" + doc.getTitulo() + "'");
 
         }
 
@@ -86,13 +152,13 @@ public class documento_controller {
     @GetMapping("/deletedoc")
     public String eliminar(@RequestParam(value = "docID", required = true) Long docID, HttpSession session) throws ScriptException {
         Documento doc = ds.buscar(docID);
-        
+
         try {
             ds.delete(doc);
-            session.setAttribute("mensajenoti", "Se eliminó el documento:'"+doc.getTitulo()+"' correctamente");
+            session.setAttribute("mensajenoti", "Se eliminó el documento:'" + doc.getTitulo() + "' correctamente");
 
         } catch (Exception e) {
-            session.setAttribute("mensajenoti", "No se pudo eliminar el documento:'"+doc.getTitulo()+"'");
+            session.setAttribute("mensajenoti", "No se pudo eliminar el documento:'" + doc.getTitulo() + "'");
 
         }
         return "redirect:/docsfriends/home";
@@ -108,10 +174,10 @@ public class documento_controller {
         solise.guardarsoli(soli);
         try {
             solise.guardarsoli(soli);
-            session.setAttribute("mensajenoti", "Se solicitó el documento: '"+soli.getIdDocumento().getTitulo()+"' correctamente");
+            session.setAttribute("mensajenoti", "Se solicitó el documento: '" + soli.getIdDocumento().getTitulo() + "' correctamente");
 
         } catch (Exception e) {
-            session.setAttribute("mensajenoti", "No se pudo solicitar el documento:'"+soli.getIdDocumento().getTitulo()+"'");
+            session.setAttribute("mensajenoti", "No se pudo solicitar el documento:'" + soli.getIdDocumento().getTitulo() + "'");
 
         }
         return "redirect:/docsfriends/home";

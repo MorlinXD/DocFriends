@@ -56,5 +56,24 @@ public class Documento {
     @Column(nullable = true)
     private String disponible;
     
+    @Column(name = "imagen1")
+    private String ruta1;
+    
+    @Column(name = "imagen2")
+    private String ruta2;
+    
+    @Column(name = "imagen3")
+    private String ruta3;
+    
+    @Column(name = "imagen4")
+    private String ruta4;
+    
+    @Column(name = "imagen5")
+    private String ruta5;
+    
+     @Column(name = "imagen6")
+    private String ruta6;
+    
+    
 
 }
