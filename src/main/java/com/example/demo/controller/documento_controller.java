@@ -47,6 +47,8 @@ public class documento_controller {
     private usuario_service us;
     @Autowired
     private Solicitud_Service solise;
+    @Autowired
+    private usuario_service ps;
 
     @PostMapping("/savedoc")
     public String login(@ModelAttribute(name = "objdocumento") Documento doc, HttpSession session,
@@ -56,6 +58,7 @@ public class documento_controller {
             @RequestParam(name = "file4", required = false) MultipartFile archivo4,
             @RequestParam(name = "file5", required = false) MultipartFile archivo5,
             @RequestParam(name = "file6", required = false) MultipartFile archivo6,
+            @RequestParam(name = "arch1", required = false) MultipartFile pdf,
             RedirectAttributes flash) {
 
         Long userId = (Long) session.getAttribute("usuario");
@@ -85,6 +88,14 @@ public class documento_controller {
                     Files.write(ruta, bytes);
                     // Guardar información del archivo en la base de datos si es necesario
                 }
+            }
+            if (pdf != null && !pdf.isEmpty()) {
+                String ruta_gen = "src/main/resources/static/files/";
+                byte[] bytes = pdf.getBytes();
+                Path ruta = Paths.get(ruta_gen + pdf.getOriginalFilename());
+                Files.write(ruta, bytes);
+                doc.setPdf(pdf.getOriginalFilename());
+                // Guardar información del archivo en la base de datos si es necesario
             }
             ds.save(doc);
             session.setAttribute("mensajenoti", "Se creó el documento:'" + doc.getTitulo() + "' correctamente");
@@ -181,6 +192,13 @@ public class documento_controller {
 
         }
         return "redirect:/docsfriends/home";
+    }
+
+    @PostMapping("/mdocumentos")
+    public String mostrardoc(Model mo, HttpSession session) {
+        Long userId = (Long) session.getAttribute("usuario");
+        mo.addAttribute("documentosInicio", ds.mostrarDocumentosInicio(ps.buscar(userId)));
+        return "libros";
     }
 
     @GetMapping("/documento")

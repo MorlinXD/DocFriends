@@ -4,6 +4,16 @@
     <div class="centrado">
         <button type="button" onclick="cargarContenido('/docsfriends/creardoc')" class="btn btn-outline-success" id="btonagregar" style="align-content: first">SUBIR DOCUMENTO &#10133;</button>
     </div>
+
+    <br/>
+<!--
+    <div style="margin-left: 5%;">
+        <select name="idTipoDocumento">
+            <option disabled th:text="Tipo" selected="Tipo"></option>
+            <option th:each="tipox : ${listatipodoc}" th:value="${tipox.idTipoDocumento}" th:text="${tipox.nombre_tipo}"></option>
+        </select>
+    </div>-->
+    
     <div class="contendorcard" th:each="docu : ${documentosInicio}">
         <div class="card" style="width: 18rem;">
             <a th:onclick="|cargarContenido('/docsfriends/documento?docID=${docu.idDocumento}')|" type="button">
@@ -30,7 +40,7 @@
                                 <div class="card" style="width: 18rem;">
                                     <h5 class="card-title text-center">Libro solicitado:</h5>
                                     <img th:if="${docu.ruta1 != '' && docu.ruta1 !=null}" th:src="@{/images/{id} (id=${docu.ruta1})}" class="card-img-top"  width="40px" height="110px" alt="imagen documento">
-                <img th:unless="${docu.ruta1 != '' && docu.ruta1 !=null}" th:src="@{/images/imagen.png}" class="card-img-top"  width="40px" height="110px" alt="imagen documento">
+                                    <img th:unless="${docu.ruta1 != '' && docu.ruta1 !=null}" th:src="@{/images/imagen.png}" class="card-img-top"  width="40px" height="110px" alt="imagen documento">
                                     <h5 class="card-title text-center" th:text="${docu.titulo}"></h5>
                                 </div>
                             </div>
@@ -53,10 +63,15 @@
         </div>
 
     </div>
+    
+ 
+
+    <br/><br/>
+    
 
 
 
-
+    
 </body>
 <style>
     .contendorcard, a,.carde{
@@ -92,4 +107,5 @@
         margin: 25px;
     }
 </style>
+
 </html>

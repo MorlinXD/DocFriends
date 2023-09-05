@@ -111,6 +111,7 @@ public class inicio_controller {
     @GetMapping("/inicio")
     public String cargarinicio(Model mo, HttpSession session) {
         Long userId = (Long) session.getAttribute("usuario");
+        mo.addAttribute("listatipodoc", tipodocser.listar());
         mo.addAttribute("documentosInicio", ds.mostrarDocumentosInicio(ps.buscar(userId)));
        
         return "contenidoinicial";

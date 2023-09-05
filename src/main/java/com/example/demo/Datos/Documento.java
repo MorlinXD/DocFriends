@@ -73,6 +73,9 @@ public class Documento {
     
      @Column(name = "imagen6")
     private String ruta6;
+     
+     @Column(name = "pdf")
+    private String pdf;
     
     
 
