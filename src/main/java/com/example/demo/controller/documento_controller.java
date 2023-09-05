@@ -115,8 +115,12 @@ public class documento_controller {
             @RequestParam(name = "file4", required = false) MultipartFile archivo4,
             @RequestParam(name = "file5", required = false) MultipartFile archivo5,
             @RequestParam(name = "file6", required = false) MultipartFile archivo6,
+            @RequestParam(name = "arch1", required = false) MultipartFile pdf,
             RedirectAttributes flash) {
+
         Long userId = (Long) session.getAttribute("usuario");
+        doc.setFecha_subida(Date.valueOf(LocalDate.now()));
+
         doc.setIdusuario(us.buscar(userId));
         List<MultipartFile> archivos = new ArrayList<>();
         archivos.add(archivo1);
@@ -131,6 +135,7 @@ public class documento_controller {
         doc.setRuta5(archivo5.getOriginalFilename());
         archivos.add(archivo6);
         doc.setRuta6(archivo6.getOriginalFilename());
+
         try {
             for (MultipartFile archivo : archivos) {
                 if (archivo != null && !archivo.isEmpty()) {
@@ -140,6 +145,14 @@ public class documento_controller {
                     Files.write(ruta, bytes);
                     // Guardar información del archivo en la base de datos si es necesario
                 }
+            }
+            if (pdf != null && !pdf.isEmpty()) {
+                String ruta_gen = "src/main/resources/static/files/";
+                byte[] bytes = pdf.getBytes();
+                Path ruta = Paths.get(ruta_gen + pdf.getOriginalFilename());
+                Files.write(ruta, bytes);
+                doc.setPdf(pdf.getOriginalFilename());
+                // Guardar información del archivo en la base de datos si es necesario
             }
             ds.save(doc);
             session.setAttribute("mensajenoti", "Se edito el documento:'" + doc.getTitulo() + "' correctamente");

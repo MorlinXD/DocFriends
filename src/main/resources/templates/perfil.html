@@ -82,7 +82,14 @@
                                     </div>
 
                                 </div>
-                                <div>
+                                <div class="mb-3" style="margin: 2%;">
+                                    <label style="color:#FFC107">Adjuntar archivo del documento:</label><br/><br/>
+                                    <label class="img p">
+                                        <input type="file" name="arch1" accept=".pdf"  >
+                                    </label>
+                                </div>
+                                <div class="mb-3" style="margin: 2%;">
+                                    <label style="color:#FFC107">Fotos del documento:</label><br/><br/>
                                     <label class="img p">
                                         <input type="file" name="file1" accept=".jpg, .jpeg, .png"  >
                                     </label>
@@ -101,8 +108,8 @@
                                     <label class="img p">
                                         <input type="file" name="file6" accept=".jpg, .jpeg, .png"  >
                                     </label>
-                                    
-                                    
+                                    <button type="Submit"  class="btn btn-outline-success" id="btonagregar" style="width: 40%">SUBIR LIBRO &#10133;</button>
+                                    <button type="button" onclick="cargarContenido('/docsfriends/inicio')" class="btn btn-outline-danger" style="width: 40%">Cancelar</button>
                                 </div>
 
                             </div>
@@ -122,7 +129,7 @@
 
     </div>
 
-    
+
 
 </body>
 <style>
