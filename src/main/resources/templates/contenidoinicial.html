@@ -15,7 +15,7 @@
 
     <div class="contendorcard" th:each="docu : ${documentosInicio}">
         <div class="card" style="width: 18rem;">
-            <a th:onclick="|cargarContenido('/docsfriends/documento?docID=${docu.idDocumento}')| ,'Documento'" type="button">
+            <a th:onclick="|cargarContenido('/docsfriends/documento?docID=${docu.idDocumento}','Documento')|" type="button">
                 <img th:if="${docu.ruta1 != '' && docu.ruta1 !=null}" th:src="@{/images/{id} (id=${docu.ruta1})}" class="card-img-top with-border"  width="40px" height="150px" alt="imagen documento">
                 <img th:unless="${docu.ruta1 != '' && docu.ruta1 !=null}" th:src="@{/images/imagen.png}" class="card-img-top with-border"  width="40px" height="150px" alt="imagen documento">
                 <h5 class="card-title text-center" th:text="${docu.titulo}" style="align-items: center;"></h5>
