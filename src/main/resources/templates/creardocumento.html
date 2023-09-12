@@ -37,7 +37,13 @@
         <div class="mb-3" style="margin: 2%;">
             <label style="color:#FFC107">Adjuntar archivo del documento:</label><br/><br/>
             <label class="img p">
-                <input type="file" name="arch1" accept=".pdf"  >
+                
+                <label for="arch1">
+                    <img class="ptp" th:src="@{/images/subir-archivo.png}" alt="Subir archivo" style="width: 60px;">
+                        <input type="file" id="arch1" name="arch1" accept=".pdf" >
+                    </img>
+                </label>
+
             </label>
         </div>
         <div class="mb-3" style="margin: 2%;">
@@ -64,8 +70,8 @@
             <button type="button" onclick="cargarContenido('/docsfriends/inicio')" class="btn btn-outline-danger" style="width: 40%">Cancelar</button>
         </div>
     </form>
-   
-   
+
+
 </body>
 <style>
 

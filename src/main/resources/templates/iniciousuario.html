@@ -71,6 +71,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             </div>
                         </div>
                     </div>
+
                     <button class="btn btn-outline-warning opciones" title="Mensajes" type="button">&#128386;</button>
 
                     <div style="width: 10%"  class="dropdown" title="Opciones de usuario">
@@ -79,7 +80,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <li>
-                                <button  style="width: 100%" type="button" class="btn btn-light" onclick="cargarContenido('/docsfriends/perfil')">Perfil</button>
+                                <button  style="width: 100%" type="button" class="btn btn-light" onclick="cargarContenido('/docsfriends/perfil','Perfil')">Perfil</button>
                             </li>
                             <li><a class="dropdown-item" th:href="@{/docsfriends/registrarse}">Agregar cuenta</a></li>
                             <li><a class="dropdown-item" th:href="@{/docsfriends/salir}">Salir</a></li>
@@ -89,6 +90,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </div>
 
         </nav>
+        <div class="col-1" >
+
+        </div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" id="breadcrumb">
+                <!-- Los elementos del breadcrumb se mostrarán aquí -->
+            </ol>
+        </nav>
+
 
         <div id="contenido">
 
@@ -98,10 +108,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
             <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
-                    
-                        <strong class="me-auto">Actividad</strong>
-                        <small>Actualmente..</small>
-                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+
+                    <strong class="me-auto">Actividad</strong>
+                    <small>Actualmente..</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body">
                     <span id="mensajeSession" th:text="${session.mensajenoti}"></span>
@@ -119,7 +129,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '<csrf-token>' 
+                        'X-CSRF-TOKEN': '<csrf-token>'
                     },
                     body: JSON.stringify({mensaje: mensajeSession})
                 }).then(response => {
@@ -131,6 +141,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 });
             }
         </script>
+
     </body>
     <style type="text/css">
         h6{
@@ -267,17 +278,48 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         }
     </style>
     <script>
-        function cargarContenido(url) {
+        var breadcrumbItems = [];
+
+        function cargarContenido(url, texto) {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (this.readyState === 4 && this.status === 200) {
                     document.getElementById("contenido").innerHTML = this.responseText;
+                    if (texto) {
+                        breadcrumbItems.push({texto: texto, url: url}); // Almacenar el texto y la URL
+                    }
+                    actualizarBreadcrumb();
                 }
             };
             xhttp.open("GET", url, true);
             xhttp.send();
         }
-        window.onload = cargarContenido('/docsfriends/inicio');
+
+        function actualizarBreadcrumb() {
+            var breadcrumb = document.getElementById("breadcrumb");
+            breadcrumb.innerHTML = "";
+            for (var i = 0; i < breadcrumbItems.length; i++) {
+                var elemento = breadcrumbItems[i];
+                var enlace = document.createElement("a");
+                enlace.textContent = elemento.texto;
+                enlace.setAttribute("onclick", "cargarContenido('" + elemento.url + "')");
+                enlace.style.cursor = "pointer"; // Cambia el cursor al estilo de puntero para indicar que es clickeable
+                enlace.style.color = "#01A8B6"; // Establece el color azul
+                breadcrumb.appendChild(enlace);
+                if (i < breadcrumbItems.length - 1) {
+                    var separador = document.createElement("span");
+                    separador.textContent = " > ";
+                    breadcrumb.appendChild(separador);
+                }
+            }
+        }
+
+        window.onload = function () {
+            cargarContenido('/docsfriends/inicio', '          Inicio');
+        };
     </script>
+
+
+
 
 </html>

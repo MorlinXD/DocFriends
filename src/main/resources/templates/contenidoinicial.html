@@ -2,27 +2,28 @@
 <body>
     <h4 style="color:white; margin-left:10px">Inicio</h4>
     <div class="centrado">
-        <button type="button" onclick="cargarContenido('/docsfriends/creardoc')" class="btn btn-outline-success" id="btonagregar" style="align-content: first">SUBIR DOCUMENTO &#10133;</button>
+        <button type="button" onclick="cargarContenido('/docsfriends/creardoc', 'Crear Documento')" class="btn btn-outline-success" id="btonagregar" style="align-content: first">SUBIR DOCUMENTO &#10133;</button>
     </div>
-
     <br/>
-<!--
-    <div style="margin-left: 5%;">
-        <select name="idTipoDocumento">
-            <option disabled th:text="Tipo" selected="Tipo"></option>
-            <option th:each="tipox : ${listatipodoc}" th:value="${tipox.idTipoDocumento}" th:text="${tipox.nombre_tipo}"></option>
-        </select>
-    </div>-->
-    
+    <!--
+        <div style="margin-left: 5%;">
+            <select name="idTipoDocumento">
+                <option disabled th:text="Tipo" selected="Tipo"></option>
+                <option th:each="tipox : ${listatipodoc}" th:value="${tipox.idTipoDocumento}" th:text="${tipox.nombre_tipo}"></option>
+            </select>
+        </div>-->
+
     <div class="contendorcard" th:each="docu : ${documentosInicio}">
         <div class="card" style="width: 18rem;">
-            <a th:onclick="|cargarContenido('/docsfriends/documento?docID=${docu.idDocumento}')|" type="button">
-                <img th:if="${docu.ruta1 != '' && docu.ruta1 !=null}" th:src="@{/images/{id} (id=${docu.ruta1})}" class="card-img-top"  width="40px" height="110px" alt="imagen documento">
-                <img th:unless="${docu.ruta1 != '' && docu.ruta1 !=null}" th:src="@{/images/imagen.png}" class="card-img-top"  width="40px" height="110px" alt="imagen documento">
+            <a th:onclick="|cargarContenido('/docsfriends/documento?docID=${docu.idDocumento}')| ,'Documento'" type="button">
+                <img th:if="${docu.ruta1 != '' && docu.ruta1 !=null}" th:src="@{/images/{id} (id=${docu.ruta1})}" class="card-img-top with-border"  width="40px" height="150px" alt="imagen documento">
+                <img th:unless="${docu.ruta1 != '' && docu.ruta1 !=null}" th:src="@{/images/imagen.png}" class="card-img-top with-border"  width="40px" height="150px" alt="imagen documento">
                 <h5 class="card-title text-center" th:text="${docu.titulo}" style="align-items: center;"></h5>
             </a>
-            <div class="card-footer">
-                <button type="button" data-bs-toggle="modal" th:data-bs-target="${'#' + docu.idDocumento}"><img style="width: 20%; height: auto;" th:src="@{/images/intercambio.png}" class="card-img-top" alt="..."></button>
+            <div class="card-footer d-flex justify-content-between align-items-end">
+                <button type="button" data-bs-toggle="modal" th:data-bs-target="${'#' + docu.idDocumento}">
+                    <img style="width: 20%; height: auto;" th:src="@{/images/intercambio.png}" class="card-img-top" alt="...">
+                </button>
             </div>
         </div>
 
@@ -39,8 +40,8 @@
                             <div class="col-md-6">
                                 <div class="card" style="width: 18rem;">
                                     <h5 class="card-title text-center">Libro solicitado:</h5>
-                                    <img th:if="${docu.ruta1 != '' && docu.ruta1 !=null}" th:src="@{/images/{id} (id=${docu.ruta1})}" class="card-img-top"  width="40px" height="110px" alt="imagen documento">
-                                    <img th:unless="${docu.ruta1 != '' && docu.ruta1 !=null}" th:src="@{/images/imagen.png}" class="card-img-top"  width="40px" height="110px" alt="imagen documento">
+                                    <img th:if="${docu.ruta1 != '' && docu.ruta1 !=null}" th:src="@{/images/{id} (id=${docu.ruta1})}" class="card-img-top"  width="40px" height="220px" alt="imagen documento">
+                                    <img th:unless="${docu.ruta1 != '' && docu.ruta1 !=null}" th:src="@{/images/imagen.png}" class="card-img-top"  width="40px" height="220px" alt="imagen documento">
                                     <h5 class="card-title text-center" th:text="${docu.titulo}"></h5>
                                 </div>
                             </div>
@@ -63,17 +64,22 @@
         </div>
 
     </div>
-    
- 
+
+
 
     <br/><br/>
-    
 
 
 
-    
+
+
 </body>
 <style>
+    .with-border {
+        border: 2px solid #000; /* Ancho del borde y color */
+        /* Otros estilos de borde (como el radio de la esquina) si es necesario */
+    }
+
     .contendorcard, a,.carde{
         display: inline-block;
 

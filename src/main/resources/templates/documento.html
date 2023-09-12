@@ -44,36 +44,53 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        <h3 class="text-center" th:text="${objdocumento.titulo}"></h3>
-        <div class="d-flex justify-content-end align-items-center Autor">
-            <p class="Autor me-2">Subido:</p>
-            <img class="ptp" th:src="@{/images/{id} (id=${objdocumento.idusuario.idImagen.ruta})}"/>
-        </div>
-        <div class="d-flex justify-content-end align-items-center Autor">
-            <button th:if="${objdocumento.pdf}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Muestra de documento
-            </button>
 
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-xl">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Muestra de pdf</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" style=" height: 500px;">
-                            <iframe  th:src="@{/files/{ruta} (ruta=${objdocumento.pdf})}" height="100%" width="100%"></iframe>
+
+        <hr style="border-color: #000; border-width: 2px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-2" >
+                    
+                </div>
+                <div class="col-8" style="background-color: #43637C">
+                    <br>
+                    <h3 class="text-center" th:text="${objdocumento.titulo}"></h3>
+                    <div class="d-flex justify-content-end align-items-center Autor">
+                        <p class="Autor me-2">Subido:</p>
+                        <img class="ptp" th:src="@{/images/{id} (id=${objdocumento.idusuario.idImagen.ruta})}"/>
+                    </div>
+                    <div class="d-flex justify-content-end align-items-center Autor">
+                        <button th:if="${objdocumento.pdf}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Muestra de documento
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Muestra de documento</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" style=" height: 500px;">
+                                        <iframe  th:src="@{/files/{ruta} (ruta=${objdocumento.pdf})}" height="100%" width="100%"></iframe>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <br>
+                    <h5 class="Autor">Autor: </h5><p class="Autor" th:text="${objdocumento.autor}"></p>
+
+                    <br>
+                    <br>
+                    <p class="text-center" th:text="${objdocumento.descripcion}"></p>
+                    <br>
+                    <br>
                 </div>
             </div>
         </div>
-        <br>
-        <p class="Autor">Autor: </p><p class="Autor" th:text="${objdocumento.autor}"></p>
 
-        <br>
-        <h5 class="text-center" th:text="${objdocumento.descripcion}"></h5>
 
     </form>
 
