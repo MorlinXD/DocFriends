@@ -7,8 +7,10 @@ package com.example.demo.controller;
 import com.example.demo.Datos.Documento;
 import com.example.demo.Datos.Solicitud;
 import com.example.demo.Datos.Usuario;
+import com.example.demo.Datos.autores;
 import com.example.demo.services.Documento_service;
 import com.example.demo.services.Solicitud_Service;
+import com.example.demo.services.autor_service;
 import com.example.demo.services.usuario_service;
 import jakarta.servlet.http.HttpSession;
 import java.nio.file.Files;
@@ -17,7 +19,9 @@ import java.nio.file.Paths;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -49,6 +53,8 @@ public class documento_controller {
     private Solicitud_Service solise;
     @Autowired
     private usuario_service ps;
+    @Autowired
+    private autor_service aus;
 
     @PostMapping("/savedoc")
     public String login(@ModelAttribute(name = "objdocumento") Documento doc, HttpSession session,
@@ -59,6 +65,8 @@ public class documento_controller {
             @RequestParam(name = "file5", required = false) MultipartFile archivo5,
             @RequestParam(name = "file6", required = false) MultipartFile archivo6,
             @RequestParam(name = "arch1", required = false) MultipartFile pdf,
+            @RequestParam(name = "autoresSinObras", required = false) List<Long> autoresSinObras,
+            @RequestParam(name = "autoresConObras", required = false) List<Long> autoresConObras,
             RedirectAttributes flash) {
 
         Long userId = (Long) session.getAttribute("usuario");
@@ -86,7 +94,7 @@ public class documento_controller {
                     byte[] bytes = archivo.getBytes();
                     Path ruta = Paths.get(ruta_gen + archivo.getOriginalFilename());
                     Files.write(ruta, bytes);
-                    // Guardar información del archivo en la base de datos si es necesario
+
                 }
             }
             if (pdf != null && !pdf.isEmpty()) {
@@ -95,8 +103,28 @@ public class documento_controller {
                 Path ruta = Paths.get(ruta_gen + pdf.getOriginalFilename());
                 Files.write(ruta, bytes);
                 doc.setPdf(pdf.getOriginalFilename());
-                // Guardar información del archivo en la base de datos si es necesario
+
             }
+
+            //-------------------------------
+            Set<autores> autoresSet = new HashSet<>();
+            if (autoresSinObras != null) {
+                for (Long autorId : autoresSinObras) {
+                    autoresSet.add(aus.buscar(autorId));
+                }
+
+            }
+
+
+            if (autoresConObras != null) {
+                for (Long autorId : autoresConObras) {
+                    autoresSet.add(aus.buscar(autorId));
+                }
+
+            }
+            doc.setAutores(autoresSet);
+
+
             ds.save(doc);
             session.setAttribute("mensajenoti", "Se creó el documento:'" + doc.getTitulo() + "' correctamente");
 
@@ -143,7 +171,7 @@ public class documento_controller {
                     byte[] bytes = archivo.getBytes();
                     Path ruta = Paths.get(ruta_gen + archivo.getOriginalFilename());
                     Files.write(ruta, bytes);
-                    // Guardar información del archivo en la base de datos si es necesario
+
                 }
             }
             if (pdf != null && !pdf.isEmpty()) {
@@ -152,7 +180,7 @@ public class documento_controller {
                 Path ruta = Paths.get(ruta_gen + pdf.getOriginalFilename());
                 Files.write(ruta, bytes);
                 doc.setPdf(pdf.getOriginalFilename());
-                // Guardar información del archivo en la base de datos si es necesario
+
             }
             ds.save(doc);
             session.setAttribute("mensajenoti", "Se edito el documento:'" + doc.getTitulo() + "' correctamente");
@@ -216,7 +244,10 @@ public class documento_controller {
 
     @GetMapping("/documento")
     public String a(Model mo, @RequestParam(value = "docID", required = true) Long docID) {
-        mo.addAttribute("objdocumento", ds.buscar(docID));
+        Documento dx=ds.buscar(docID);
+        mo.addAttribute("objdocumento", dx);
+        mo.addAttribute("listautores", dx.getAutores());
+        
         return "documento";
     }
 }

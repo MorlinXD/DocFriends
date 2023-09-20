@@ -6,6 +6,7 @@ package com.example.demo.Datos;
 
 import jakarta.persistence.*;
 import java.sql.Date;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -32,51 +33,55 @@ public class Documento {
     @Column(nullable = false)
     private String titulo;
 
-    @Column(nullable = false)
-    private String autor;
-    
     @Column(nullable = true)
     private String descripcion;
-    
+
     @ManyToOne
     @JoinColumn(nullable = false)
-    Usuario idusuario; /*clave foranea*/
-    
+    Usuario idusuario;
+    /*clave foranea*/
+
+    @ManyToMany
+    @JoinTable(
+            name = "documento_autores",
+            joinColumns = @JoinColumn(name = "documento_id"),
+            inverseJoinColumns = @JoinColumn(name = "autor_id")
+    )
+    private Set<autores> autores;
+
     @ManyToOne
     @JoinColumn(nullable = false)
     Tipo_Documento idTipoDocumento;/*clave foranea*/
-    
-    
+
+
     @Column(nullable = false)
     private Date fecha_subida;/*datetime*/
-    
+
     @Column(nullable = true)
     private Date fecha_intercambio;/*datetime*/
-    
+
     @Column(nullable = true)
     private String disponible;
-    
+
     @Column(name = "imagen1")
     private String ruta1;
-    
+
     @Column(name = "imagen2")
     private String ruta2;
-    
+
     @Column(name = "imagen3")
     private String ruta3;
-    
+
     @Column(name = "imagen4")
     private String ruta4;
-    
+
     @Column(name = "imagen5")
     private String ruta5;
-    
-     @Column(name = "imagen6")
+
+    @Column(name = "imagen6")
     private String ruta6;
-     
-     @Column(name = "pdf")
+
+    @Column(name = "pdf")
     private String pdf;
-    
-    
 
 }

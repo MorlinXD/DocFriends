@@ -7,9 +7,11 @@ package com.example.demo.controller;
 import com.example.demo.Datos.Documento;
 import com.example.demo.Datos.Solicitud;
 import com.example.demo.Datos.Usuario;
+import com.example.demo.Datos.autores;
 import com.example.demo.services.Documento_service;
 import com.example.demo.services.Solicitud_Service;
 import com.example.demo.services.Tipo_Documento_service;
+import com.example.demo.services.autor_service;
 import com.example.demo.services.ciudad_service;
 import com.example.demo.services.usuario_service;
 import jakarta.servlet.http.HttpServletResponse;
@@ -40,6 +42,8 @@ public class inicio_controller {
     private Documento_service ds;
     @Autowired
     private Solicitud_Service solise;
+    @Autowired
+    private autor_service autse;
 
     @GetMapping("/iniciosession")
     public String login(Model mo) {
@@ -118,11 +122,17 @@ public class inicio_controller {
     }
 
     @GetMapping("/creardoc")
-    public String creardocument(Model mo) {
+    public String creardocument(Model mo, HttpSession session) {
+        mo.addAttribute("autoresnormal", ds.listar());
+        Long userId = (Long) session.getAttribute("usuario");
+        mo.addAttribute("autoresusuario", ds.buscarDocumentosPorUsuario(ps.buscar(userId)));
+        mo.addAttribute("objautor", new autores());
         mo.addAttribute("listatipodoc", tipodocser.listar());
         if (mo.getAttribute("objdocumento") == null) {
             mo.addAttribute("objdocumento", new Documento());
         }
+        mo.addAttribute("listautno",autse.buscarsindoc());
+        mo.addAttribute("listautcon",autse.buscarcondoc());
         return "creardocumento";
     }
 

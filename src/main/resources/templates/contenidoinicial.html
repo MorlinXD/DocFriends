@@ -1,10 +1,19 @@
 
 <body>
     <h4 style="color:white; margin-left:10px">Inicio</h4>
-    <div class="centrado">
-        <button type="button" onclick="cargarContenido('/docsfriends/creardoc', 'Crear Documento')" class="btn btn-outline-success" id="btonagregar" style="align-content: first">SUBIR DOCUMENTO &#10133;</button>
+    <div class="row">
+        <div class="col-6">
+            <div class="centrado">
+                <button type="button" onclick="cargarContenido('/docsfriends/creardoc', 'Crear Documento')" class="btn btn-outline-success" id="btonagregar" style="align-content: first">SUBIR DOCUMENTO &#10133;</button>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="centrado">
+                <button type="button" onclick="cargarContenido('/docsfriends/autores', 'Autores')" class="btn btn-outline-danger" id="btonagregar" style="align-content: first">AGREGAR AUTORES &#10133;</button>
+            </div>
+        </div>
     </div>
-    <br/>
+    <br/> 
     <!--
         <div style="margin-left: 5%;">
             <select name="idTipoDocumento">

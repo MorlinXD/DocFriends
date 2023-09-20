@@ -18,59 +18,81 @@
                     <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Titulo de documento" th:field="*{titulo}">
                 </div>
                 <div class="mb-3">
-                    <label style="color:#FFC107">Autor:  </label>
-                    <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Autor de documento" th:field="*{autor}">
-                </div>
-                <div class="mb-3">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Sispnosis:</span>
-                        <textarea class="form-control" aria-label="With textarea" th:field="*{descripcion}"></textarea>
+                    <label style="color:#FFC107">Seleccione sus autores:</label><br>
+                    <div class="d-flex justify-content-between">
+                        <ul class="list-group" style="width: 45%;">
+                            <li class="list-group-item"><h6>Autores sin obras</h6></li>
+                            <div th:each="autor : ${listautno}">
+                                <li class="list-group-item">
+                                    <input type="checkbox" name="autoresSinObras" th:value="${autor.idautor}"/>
+                                    <span th:text="${autor.nombre}"></span>
+                                </li>
+                            </div>
+                        </ul>
+                        <ul class="list-group" style="width: 45%;">
+                            <li class="list-group-item"><h6>Autores con obras:</h6></li>
+                            <div th:each="autor : ${listautcon}">
+                                <li class="list-group-item">
+                                    <input type="checkbox" name="autoresConObras" th:value="${autor.idautor}"/>
+                                    <span th:text="${autor.nombre}"></span>
+                                </li>
+                            </div>
+                        </ul>
                     </div>
+                    <button type="button" onclick="cargarContenido('/docsfriends/autores', 'Autores')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Añadir autor
+                    </button>
                 </div>
-                <select name="idTipoDocumento">
-                    <option disabled th:text="Tipo" selected="Tipo"></option>
-                    <option th:each="tipox : ${listatipodoc}" th:value="${tipox.idTipoDocumento}" th:text="${tipox.nombre_tipo}" th:field="*{idTipoDocumento}"></option>
-                </select>
-
             </div>
-        </div>
-        <div class="mb-3" style="margin: 2%;">
-            <label style="color:#FFC107">Adjuntar archivo del documento:</label><br/><br/>
-            <label class="img p">
-                
-                <label for="arch1">
-                    <img class="ptp" th:src="@{/images/subir-archivo.png}" alt="Subir archivo" style="width: 60px;">
-                        <input type="file" id="arch1" name="arch1" accept=".pdf" >
-                    </img>
-                </label>
+            <div class="mb-3">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Sispnosis:</span>
+                    <textarea class="form-control" aria-label="With textarea" th:field="*{descripcion}"></textarea>
+                </div>
+            </div>
+            <select name="idTipoDocumento">
+                <option disabled th:text="Tipo" selected="Tipo"></option>
+                <option th:each="tipox : ${listatipodoc}" th:value="${tipox.idTipoDocumento}" th:text="${tipox.nombre_tipo}" th:field="*{idTipoDocumento}"></option>
+            </select>
 
-            </label>
         </div>
-        <div class="mb-3" style="margin: 2%;">
-            <label style="color:#FFC107">Fotos del documento:</label><br/><br/>
-            <label class="img p">
-                <input type="file" name="file1" accept=".jpg, .jpeg, .png"  >
-            </label>
-            <label class="img p">
-                <input type="file" name="file2" accept=".jpg, .jpeg, .png"  >
-            </label>
-            <label class="img p">
-                <input type="file" name="file3" accept=".jpg, .jpeg, .png"  >
-            </label> 
-            <label class="img p">
-                <input type="file" name="file4" accept=".jpg, .jpeg, .png"  >
-            </label> 
-            <label class="img p">
-                <input type="file" name="file5" accept=".jpg, .jpeg, .png"  >
-            </label>
-            <label class="img p">
-                <input type="file" name="file6" accept=".jpg, .jpeg, .png"  >
-            </label>
-            <button type="Submit"  class="btn btn-outline-success" id="btonagregar" style="width: 40%">SUBIR LIBRO &#10133;</button>
-            <button type="button" onclick="cargarContenido('/docsfriends/inicio')" class="btn btn-outline-danger" style="width: 40%">Cancelar</button>
-        </div>
-    </form>
+    </div>
+    <div class="mb-3" style="margin: 2%;">
+        <label style="color:#FFC107">Adjuntar archivo del documento:</label><br/><br/>
+        <label class="img p">
 
+            <label for="arch1">
+                <img class="ptp" th:src="@{/images/subir-archivo.png}" alt="Subir archivo" style="width: 60px;">
+                <input type="file" id="arch1" name="arch1" accept=".pdf" >
+                </img>
+            </label>
+
+        </label>
+    </div>
+    <div class="mb-3" style="margin: 2%;">
+        <label style="color:#FFC107">Fotos del documento:</label><br/><br/>
+        <label class="img p">
+            <input type="file" name="file1" accept=".jpg, .jpeg, .png"  >
+        </label>
+        <label class="img p">
+            <input type="file" name="file2" accept=".jpg, .jpeg, .png"  >
+        </label>
+        <label class="img p">
+            <input type="file" name="file3" accept=".jpg, .jpeg, .png"  >
+        </label> 
+        <label class="img p">
+            <input type="file" name="file4" accept=".jpg, .jpeg, .png"  >
+        </label> 
+        <label class="img p">
+            <input type="file" name="file5" accept=".jpg, .jpeg, .png"  >
+        </label>
+        <label class="img p">
+            <input type="file" name="file6" accept=".jpg, .jpeg, .png"  >
+        </label>
+        <button type="Submit"  class="btn btn-outline-success" id="btonagregar" style="width: 40%">SUBIR LIBRO &#10133;</button>
+        <button type="button" onclick="cargarContenido('/docsfriends/inicio')" class="btn btn-outline-danger" style="width: 40%">Cancelar</button>
+    </div>
+</form>
 
 </body>
 <style>

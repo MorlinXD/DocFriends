@@ -1,0 +1,122 @@
+
+<body>
+    <h4 style="color:white; margin-left:10px">Autores</h4>
+
+    <div class="row">
+        <div class="col-3">
+            <h5 style="color:white; margin-left:10px">Todos los autores</h5>
+            <table class="table" style="margin: 5%;">
+                <thead>
+                    <tr >
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="autor : ${autoresnormal}">
+                        <th scope="row">1</th>
+                        <td th:text="${autor.nombre}"></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-3">
+            <h5 style="color:white; margin-left:10px">Tus autores</h5>
+            <table class="table" style="margin: 5%;">
+                <thead>
+                    <tr >
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="autor : ${autoresusuario}">
+                        <th scope="row">1</th>
+                        <td th:text="${autor.nombre}"></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        
+        
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Añadir autor
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Añadir autor</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form th:action="@{/docsfriends/saveautor}" th:object="${objautor}" method="POST" >
+                            <div class="form-segment segment-1" >
+                                <div class="mb-3">
+                                    <label style="color:#FFC107">Nombre:</label>
+                                    <input required="true" type="text" maxlength="30" class="form-control" id="exampleFormControlInput1" placeholder="Nombre de autor" th:field="*{nombre}">
+                                </div>
+                            </div>
+
+                            <button type="Submit"  class="btn btn-outline-success" id="btonagregar" style="width: 40%">AÑADIR AUTOR &#10133;</button>
+                            <button type="button" onclick="cargarContenido('/docsfriends/inicio')" class="btn btn-outline-danger" style="width: 40%">Cancelar</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</body>
+<style>
+    .with-border {
+        border: 2px solid #000; /* Ancho del borde y color */
+        /* Otros estilos de borde (como el radio de la esquina) si es necesario */
+    }
+
+    .contendorcard, a,.carde{
+        display: inline-block;
+
+    }
+
+
+    .card{
+        margin-left: 5%;
+        align-items: center;
+        max-width: 10rem;
+        width: 10rem;
+        height: 15rem;
+    }
+    .card-title{
+        font-size: 15px;
+        align-items: center;
+    }
+    .card-text{
+        font-size: 10px;
+        max-height: 5.5em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .centrado{
+        justify-content: center;
+        display: flex;
+        align-items: center;
+    }
+    #btonagregar{
+        width: 50%;
+        margin: 25px;
+    }
+</style>
+
+</html>
